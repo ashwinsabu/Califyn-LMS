@@ -194,6 +194,8 @@ Route::put('certificate/approve',[certificateController::class,'approve']);
 
 Route::post('certificate/test',[certificateController::class,'add']);
 
+Route::post('certificate/test2',[certificateController::class,'add2']);
+
 Route::fallback(function(){
     return response()->json([
         'message' => 'Page Not Found. If error persists, contact ashwinsabu2000@gmail.com'], 404);

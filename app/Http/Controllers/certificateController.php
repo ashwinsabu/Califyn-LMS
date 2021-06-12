@@ -7,6 +7,7 @@ use App\certificate;
 use App\student;
 use App\categorie;
 use DB;
+use Validator;
 
 class certificateController extends Controller
 {
@@ -21,31 +22,11 @@ class certificateController extends Controller
     }
 
     function add(Request $req){
-        // $cert=new certificate;
-        // $cert->prize=$req->prize;
-        // $cert->name=$req->name;
-        // if($req->file('image') != null){
-        //     $image=$req->file('image')->store('certificates');
-        //     $cert->image='storage/'.$image;
-        // }
-        // $cert->semester=$req->semester;
-        // $cert->student_id=$req->student_id;
-        // $cert->organized_by=$req->organized_by;
-        // $cert->day=$req->day;
-        // $cert->points=10;
-        // $cert->activity_id=$req->activity_id;
-        // $cert->status=0;
-        // $cert->category_id=$req->category_id;
-        // $cert->staff_id=$req->staff_id;
-        // $cert->level_id=$req->level_id;
-        // $result=$cert->save();
-        // if($result){
-        //     return["message"=>"Success"];
-        // }
-        // else{
-        //     return response()->json([
-        //     'message' => 'Request failed.'], 404);
-        // }
+        $cert=new certificate;
+        $val = Validator::make($req->all(),$cert->createRules);
+        if ($val->fails()) {
+            return response()->json($val->errors(),422);
+        }
 
         $cal=categorie::find($req->category_id);
         $point = DB::table('points')
@@ -67,7 +48,6 @@ class certificateController extends Controller
                     $a=$point * $max;
                     if($a != 0){
                     if($total <= $max){
-                        $cert=new certificate;
                         $cert->prize=$req->prize;
                         $cert->name=$req->name;
                         if($req->file('image') != null){
@@ -102,6 +82,38 @@ class certificateController extends Controller
                         return response()->json([
                         'message' => 'Passed value contain error.'], 404);
                     }
+    }
+
+    function add2(Request $req){
+        $cert=new certificate;
+        $val = Validator::make($req->all(),$cert->createRules);
+        if ($val->fails()) {
+            return response()->json($val->errors(),422);
+        };
+        $cert->prize=$req->prize;
+        $cert->name=$req->name;
+        if($req->file('image') != null){
+            $image=$req->file('image')->store('certificates');
+            $cert->image='storage/'.$image;
+        }
+        $cert->semester=$req->semester;
+        $cert->student_id=$req->student_id;
+        $cert->organized_by=$req->organized_by;
+        $cert->day=$req->day;
+        $cert->points=10;
+        $cert->activity_id=$req->activity_id;
+        $cert->status=0;
+        $cert->category_id=$req->category_id;
+        $cert->staff_id=$req->staff_id;
+        $cert->level_id=$req->level_id;
+        $result=$cert->save();
+        if($result){
+            return["message"=>"Success"];
+        }
+        else{
+            return response()->json([
+            'message' => 'Request failed.'], 404);
+        }
     }
 
     function update(Request $req){

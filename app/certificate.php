@@ -11,7 +11,7 @@ class certificate extends Model
 {
     public $table='certificates';
     public $timestamps=false;
-    protected $fillable = ['name', 'image', 'student_id', 'prize','organized_by','level','day','points','category_id','status','level_id','about'];
+    protected $fillable = ['name', 'image', 'student_id', 'prize','organized_by','level_id','day','points','category_id','status','about','activity_id'];
 
     public function studentRelation() {
         return $this->hasOne( student::class,'id', 'student_id');
@@ -23,5 +23,12 @@ class certificate extends Model
     public function levelRelation(){
         return $this->hasOne( department::class,'id', 'level_id');
     }
+
+    public $createRules = array(
+        'student_id' => 'required',
+        'level_id' => 'required',
+        'category_id' => 'required',
+        'activity_id' => 'required'
+    );
 }
 
