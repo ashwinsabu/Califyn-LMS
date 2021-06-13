@@ -134,13 +134,12 @@ class staffController extends Controller
         }
     }
 
-    function approvalPending(Request $req){
+    function approvalPending($id){
         try{
             $result=DB::table('certificates')
+                        ->where('staff_id', $id)
                         ->where('status',0)
-                        ->where('staff_id', $req->id)
                         ->get();
-            //$result=$result->sortBy('created_at');
             return(response()->json(array( "data" => $result)));
         }
         catch(\Exception $e){

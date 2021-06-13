@@ -89,7 +89,7 @@ class certificateController extends Controller
         $val = Validator::make($req->all(),$cert->createRules);
         if ($val->fails()) {
             return response()->json($val->errors(),422);
-        };
+        }
         $cert->prize=$req->prize;
         $cert->name=$req->name;
         if($req->file('image') != null){

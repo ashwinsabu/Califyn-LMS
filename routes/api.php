@@ -81,7 +81,7 @@ Route::put('staff/code',[staffController::class,'codeGenerator']);
 
 Route::delete('staff/delete/{id}',[staffController::class,'delete']);
 
-Route::post('staff/unapproved',[staffController::class,'approvalPending']);
+Route::get('staff/unapproved/{id}',[staffController::class,'approvalPending']);
 
 Route::post('staff/confirmed',[staffController::class,'confirmed']);
 
