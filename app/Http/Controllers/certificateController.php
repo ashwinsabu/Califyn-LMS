@@ -23,6 +23,7 @@ class certificateController extends Controller
 
     function add(Request $req){
         $cert=new certificate;
+        return response()->json($req->all(),200);
         $val = Validator::make($req->all(),$cert->createRules);
         if ($val->fails()) {
             return response()->json($val->errors(),422);
@@ -47,37 +48,38 @@ class certificateController extends Controller
                     $total=$point + $tpoint;
                     $a=$point * $max;
                     if($a != 0){
-                    if($total <= $max){
-                        $cert->prize=$req->prize;
-                        $cert->name=$req->name;
-                        if($req->file('image') != null){
-                            $image=$req->file('image')->store('certificates');
-                            $cert->image='storage/'.$image;
-                        }
-                        
-                        $cert->semester=$req->semester;
-                        $cert->student_id=$req->student_id;
-                        $cert->organized_by=$req->organized_by;
-                        $cert->day=$req->day;
-                        $cert->points=$point;
-                        $cert->activity_id=$req->activity_id;
-                        $cert->status=0;
-                        $cert->category_id=$req->category_id;
-                        $cert->staff_id=$req->staff_id;
-                        $cert->level_id=$req->level_id;
-                        $result=$cert->save();
-                        if($result){
-                            return["message"=>"Success"];
+                        if($total <= $max){
+                            $cert->prize=$req->prize;
+                            $cert->name=$req->name;
+                            if($req->file('image') != null){
+                                $image=$req->file('image')->store('certificates');
+                                $cert->image='storage/'.$image;
+                            }
+                            
+                            $cert->semester=$req->semester;
+                            $cert->student_id=$req->student_id;
+                            $cert->organized_by=$req->organized_by;
+                            $cert->day=$req->day;
+                            $cert->points=$point;
+                            $cert->activity_id=$req->activity_id;
+                            $cert->status=0;
+                            $cert->category_id=$req->category_id;
+                            $cert->staff_id=$req->staff_id;
+                            $cert->level_id=$req->level_id;
+                            $result=$cert->save();
+                            if($result){
+                                return["message"=>"Success"];
+                            }
+                            else{
+                                return response()->json([
+                                'message' => 'Request failed.'], 404);
+                            }
                         }
                         else{
                             return response()->json([
-                            'message' => 'Request failed.'], 404);
+                                'message' => 'Point is above the limit'], 403);
                         }
                     }
-                    else{
-                        return response()->json([
-                            'message' => 'Point is above the limit'], 403);
-                    }}
                     else{
                         return response()->json([
                         'message' => 'Passed value contain error.'], 404);
