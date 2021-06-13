@@ -23,7 +23,6 @@ class certificateController extends Controller
 
     function add(Request $req){
         $cert=new certificate;
-        return response()->json($req->student_id,200);
         $val = Validator::make($req->all(),$cert->createRules);
         if ($val->fails()) {
             return response()->json($val->errors(),422);
