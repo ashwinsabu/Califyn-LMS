@@ -186,7 +186,7 @@ class studentController extends Controller
         try{
             $result=DB::table('certificates')
                         ->where('status',2)
-                        ->where('staff_id', $req->id)
+                        ->where('student_id', $req->id)
                         ->get();
             return(response()->json(array( "data" => $result)));
         }
