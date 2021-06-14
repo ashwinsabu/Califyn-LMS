@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\staff;
 use App\User;
+use App\certificate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use DB;
@@ -136,15 +137,15 @@ class staffController extends Controller
 
     function approvalPending($id){
         try{
-            $result=DB::table('certificates')
+            $result=certificate::with('studentRelation','categoryRelation','levelRelation')
                         ->where('staff_id', $id)
                         ->where('status',0)
                         ->get();
             return(response()->json(array( "data" => $result)));
         }
         catch(\Exception $e){
-            $successStatus=400;
-            return response()->json(['message'=>'failed', 'status'=>$successStatus]);
+            return response()->json([
+                'message' => 'failed'], 400);
         }
     }
 
@@ -154,14 +155,14 @@ class staffController extends Controller
             $result=DB::table('certificates')
                         ->where('status',1)
                         ->where('staff_id', $req->id)
-                        ->where('semester', '=', $req->semester)
+                        ->where('semester', $req->semester)
                         ->get();
             //$result=$result->sortBy('created_at');
             return(response()->json(array( "data" => $result)));
         }
         catch(\Exception $e){
-            $successStatus=400;
-            return response()->json(['message'=>'failed', 'status'=>$successStatus]);
+            return response()->json([
+                'message' => 'failed'], 400);
         }
     }
 
