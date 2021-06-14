@@ -35,10 +35,10 @@ class certificateController extends Controller
                                 ->where('category_id',$req->category_id)
                                 ->value('points');
                     $tpoint = DB::table('certificates')
-                                ->join('categories', 'certificates.category_id', '=', 'categories.id')
-                                ->where('categories.code', '=', 'cat')
-                                ->where('certificates.student_id', '=', $req->student_id)
-                                ->sum('certificates.points');
+                                ->where('activity_id',$req->activity_id)
+                                ->where('category_id',$req->category_id)
+                                ->where('student_id', '=', $req->student_id)
+                                ->sum('points');
                     $max = DB::table('points')
                                 ->where('activity_id',$req->activity_id)
                                 ->where('level_id',$req->level_id)

@@ -15,7 +15,7 @@ class sports_gameController extends Controller
     function getData1($id){
         $result= sports_game::find($id);
         return(response()->json(array( "data" => $result)));
-    }'activity', 'points', 'level_id','max_points','duration'
+    }
 
     function add(Request $req){
         $sport=new sports_game;

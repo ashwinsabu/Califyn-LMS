@@ -52,6 +52,10 @@ Route::put('student/staff/update',[studentController::class,'staffUpdate']);
 
 Route::post('student/certificate',[studentController::class,'studentCertificates']);
 
+Route::post('student/certificate/pending',[studentController::class,'sapprovalPending']);
+
+Route::post('student/certificate/rejected',[studentController::class,'sRejected']);
+
 //SPorts_games API
 Route::get('sports_game/read',[sports_gameController::class,'getData']);
 

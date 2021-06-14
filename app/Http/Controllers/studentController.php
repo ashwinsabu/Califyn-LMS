@@ -124,32 +124,6 @@ class studentController extends Controller
     }
     }
 
-    // function staffSelection(Request $req){
-    //     $staff=DB::table('staffs')
-    //             ->where('code',$req->code)
-    //             ->first();
-    //     if($staff){
-    //     $student=student::find($req->student_id);
-    //     if($student->staff_id==null){
-    //     $student->staff_id=$staff->id;
-    //     $result=$student->save();
-    //     if($result){
-    //         return["Message"=>"staff is assigned"];
-    //     }
-    //     else{
-    //         return["Result"=>"Failed due to an error."];
-    //     }
-    // }
-    // else{
-    //     return["message"=>"Staff is already assigned"];
-    // }
-    // }
-    // else{
-    //     return["message"=>"No staff with this code. Kindly recheck"];
-    //     }
-    // }
-
-
     function staffUpdate(Request $req){
         try{
         $staff=DB::table('staffs')
@@ -192,5 +166,36 @@ class studentController extends Controller
             return response()->json(['message'=>'failed', 'status'=>$successStatus]);
         }
     }
+
+    function sapprovalPending(Request $req){
+        try{
+            $result = DB::table('certificates')
+                        ->where('status',0)
+                        ->where('student_id', $req->id)
+                        ->get();
+            return(response()->json(array( "data" => $result)));
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'message' => 'failed'], 400);
+        }
+    }
+
+
+    function sRejected(Request $req){
+        try{
+            $result=DB::table('certificates')
+                        ->where('status',2)
+                        ->where('staff_id', $req->id)
+                        ->get();
+            return(response()->json(array( "data" => $result)));
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'message' => 'failed'], 400);
+        }
+    }
+
+
 
 }

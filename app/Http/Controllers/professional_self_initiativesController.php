@@ -16,7 +16,7 @@ class professional_self_initiativesController extends Controller
         $result= professional_self_initiative::find($id);
         return(response()->json(array( "data" => $result)));
     }
-    function add(Request $req){'activity', 'points', 'level_id','max_points','duration'
+    function add(Request $req){
         $psi=new professional_self_initiative;
         $psi->activity=$req->activity;
         $psi->points=$req->points;
