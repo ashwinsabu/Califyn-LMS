@@ -8,6 +8,7 @@ use App\User;
 use App\staff;
 use Illuminate\Support\Facades\Hash;
 use DB;
+use App\certificate;
 use Validator;
 
 
@@ -153,7 +154,7 @@ class studentController extends Controller
 
     function studentCertificates(Request $req){
         try{
-            $result=DB::table('certificates')
+            $result=certificate::with('studentRelation','categoryRelation','levelRelation')
                         ->where('status',1)
                         ->where('student_id', $req->id)
                         ->where('semester', '=', $req->semester)
@@ -169,7 +170,7 @@ class studentController extends Controller
 
     function sapprovalPending(Request $req){
         try{
-            $result = DB::table('certificates')
+            $result = certificate::with('studentRelation','categoryRelation','levelRelation')
                         ->where('status',0)
                         ->where('student_id', $req->id)
                         ->get();
@@ -184,7 +185,7 @@ class studentController extends Controller
 
     function sRejected(Request $req){
         try{
-            $result=DB::table('certificates')
+            $result=certificate::with('studentRelation','categoryRelation','levelRelation')
                         ->where('status',2)
                         ->where('student_id', $req->id)
                         ->get();
