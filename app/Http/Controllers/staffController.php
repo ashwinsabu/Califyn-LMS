@@ -67,7 +67,8 @@ class staffController extends Controller
             return response()->json(['message'=>'success','success'=>$success, "statusCode"=>$this-> successStatus]); 
         }
         else{
-            return["Result"=>"Failed"];
+            return response()->json([
+                'message' => 'failed'], 400);
         }
     }
     catch(\Exception $exception){
@@ -86,7 +87,8 @@ class staffController extends Controller
             return["message"=>"Code generated"];
         }
         else{
-            return["Result"=>"Failed"];
+            return response()->json([
+                'message' => 'failed'], 400);
         }
     }
 
@@ -104,7 +106,8 @@ class staffController extends Controller
             return response()->json(['success'=>$success], $this-> successStatus); 
         }
         else{
-            return["Result"=>"Failed"];
+            return response()->json([
+                'message' => 'failed'], 400);
         }
     }
 

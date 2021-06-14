@@ -28,7 +28,8 @@ class national_initiativeController extends Controller
             return["Message"=>"Success"];
         }
         else{
-            return["Result"=>"Failed"];
+            return response()->json([
+                'message' => 'failed'], 400);
         }
     }
 
@@ -43,7 +44,8 @@ class national_initiativeController extends Controller
             return["Message"=>"Success"];
         }
         else{
-            return["Result"=>"Failed"];
+            return response()->json([
+                'message' => 'failed'], 400);
         }
     }
 

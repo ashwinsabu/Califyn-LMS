@@ -181,7 +181,7 @@ Route::get('certificate/read',[certificateController::class,'getData']);
 
 Route::get('certificate/read/{id}',[certificateController::class,'getData1']);
 
-Route::post('certificate/add',[certificateController::class,'calculate']);
+//Route::post('certificate/add',[certificateController::class,'calculate']);
 
 Route::put('certificate/update',[certificateController::class,'update']);
 
@@ -192,7 +192,7 @@ Route::put('certificate/reject',[certificateController::class,'reject']);
 
 Route::put('certificate/approve',[certificateController::class,'approve']);
 
-Route::post('certificate/test',[certificateController::class,'add']);
+Route::post('certificate/add',[certificateController::class,'add']);
 
 Route::post('certificate/test2',[certificateController::class,'add2']);
 

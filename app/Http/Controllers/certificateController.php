@@ -29,6 +29,7 @@ class certificateController extends Controller
         }
 
         $cal=categorie::find($req->category_id);
+        $stud=student::find($req->student_id);
         $point = DB::table('points')
                                 ->where('activity_id',$req->activity_id)
                                 ->where('level_id',$req->level_id)
@@ -63,7 +64,7 @@ class certificateController extends Controller
                             $cert->activity_id=$req->activity_id;
                             $cert->status=0;
                             $cert->category_id=$req->category_id;
-                            $cert->staff_id=$req->staff_id;
+                            $cert->staff_id=$stud->staff_id;
                             $cert->level_id=$req->level_id;
                             $result=$cert->save();
                             if($result){
@@ -141,7 +142,8 @@ class certificateController extends Controller
             return["message"=>"Success"];
         }
         else{
-            return["Result"=>"Failed"];
+            return response()->json([
+                'message' => 'failed'], 400);
         }
     }
 

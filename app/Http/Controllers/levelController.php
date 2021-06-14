@@ -61,7 +61,8 @@ class levelController extends Controller
             return["Message"=>"Success"];
         }
         else{
-            return["Result"=>"Failed"];
+            return response()->json([
+                'message' => 'failed'], 400);
         }
     }
 
@@ -73,7 +74,8 @@ class levelController extends Controller
             return["Message"=>"Success"];
         }
         else{
-            return["Result"=>"Failed"];
+            return response()->json([
+                'message' => 'failed'], 400);
         }
     }
 
