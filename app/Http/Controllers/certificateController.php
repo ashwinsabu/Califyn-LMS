@@ -27,7 +27,6 @@ class certificateController extends Controller
         if ($val->fails()) {
             return response()->json($val->errors(),422);
         }
-
         $cal=categorie::find($req->category_id);
         $stud=student::find($req->student_id);
         $point = DB::table('points')
