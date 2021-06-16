@@ -22,7 +22,7 @@ class student extends Model
     public $createRules = array(
         'register_no' => 'required|unique:App\student,register_no',
         'name' => 'required',
-        'email' => 'required|unique:App\student,email',
+        'email' => 'required|email|unique:App\student,email',
         'password' => 'required',
         'yop' => 'required',
         'department_id' => 'required',

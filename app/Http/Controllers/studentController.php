@@ -60,6 +60,8 @@ class studentController extends Controller
         $student->email=$req->email;
         $user->email=$req->email;
         $student->semester=$req->semester;
+        $student->certicate_count=0;
+        $student->status=1;
         $student->section=$req->section;
         $student->points=$req->points;
         
@@ -103,21 +105,37 @@ class studentController extends Controller
     }
     }
 
-    function delete($id){
+    function deactivate($id){
         try{
         $student=student::find($id);
-        $user=DB::table('users')->where('email', '=', $student->email)->delete();
-        if($student==null){
-            return["message"=>"No row found"];
+        $student->status=0;
+        $result=$student->save();
+        if($result){
+            return["Message"=>"Success"];
         }
         else{
-        $result=$student->delete();
-        if($result & $user){
-            return["Message"=>"Deleted"];
+            return response()->json([
+                'message' => 'failed'], 400);
+        }
+    }
+    catch(\Exception $exception){
+        $successStatus=400;
+        return response()->json(['message'=>'failed', 'status'=>$successStatus]);
+    }
+    }
+
+    function activate($id){
+        try{
+        $student=student::find($id);
+        $student->status=1;
+        $result=$student->save();
+        if($result){
+            return["Message"=>"Success"];
         }
         else{
-            return["Messgae"=>"Not deleted"];
-        }}
+            return response()->json([
+                'message' => 'failed'], 400);
+        }
     }
     catch(\Exception $exception){
         $successStatus=400;
@@ -129,6 +147,7 @@ class studentController extends Controller
         try{
         $staff=DB::table('staffs')
                 ->where('code',$req->code)
+                ->where('status',1)
                 ->first();
         if($staff){
             $student=student::find($req->student_id);
@@ -190,6 +209,19 @@ class studentController extends Controller
                         ->where('student_id', $req->id)
                         ->get();
             return(response()->json(array( "data" => $result)));
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'message' => 'failed'], 400);
+        }
+    }
+
+
+    //This function returns the student list under each staff
+    function mentorForStudents($id){
+        try{
+            $student=student::where('staff_id',$id)->get();
+            return(response()->json(array( "data" => $student)));
         }
         catch(\Exception $e){
             return response()->json([

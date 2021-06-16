@@ -59,6 +59,7 @@ class staffController extends Controller
         $staff->yop=$req->yop;
         $staff->section=$req->section;
         $user->email=$req->email;
+        $staff->status=1;
         $staff->role=$req->role;
         $result=$staff->save();
         $result1=$user->save();
@@ -111,21 +112,46 @@ class staffController extends Controller
         }
     }
 
-    function delete($id){
-        $staff=staff::find($id);
-        $user=DB::table('users')->where('email', '=', $staff->email)->delete();
-        if($staff==null){
-            return["message"=>"No row found"];
+    function deactivate($id){
+        
+        try{
+            $staff=staff::find($id);
+            $staff->status=0;
+            $result=$staff->save();
+            if($result){
+                return["Message"=>"Success"];
+            }
+            else{
+                return response()->json([
+                    'message' => 'failed'], 400);
+            }
         }
-        else{
-        $result=$staff->delete();
-        if($result  & $user){
-            return["Message"=>"Deleted"];
+        catch(\Exception $exception){
+            $successStatus=400;
+            return response()->json(['message'=>'failed', 'status'=>$successStatus]);
         }
-        else{
-            return["Messgae"=>"Not deleted"];
-        }}
     }
+
+    function activate($id){
+        
+        try{
+            $staff=staff::find($id);
+            $staff->status=1;
+            $result=$staff->save();
+            if($result){
+                return["Message"=>"Success"];
+            }
+            else{
+                return response()->json([
+                    'message' => 'failed'], 400);
+            }
+        }
+        catch(\Exception $exception){
+            $successStatus=400;
+            return response()->json(['message'=>'failed', 'status'=>$successStatus]);
+        }
+    }
+    
     function staffName(Request $req){
         try{
             $successStatus=200;
