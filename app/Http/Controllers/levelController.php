@@ -43,8 +43,8 @@ class levelController extends Controller
         return(response()->json(array( "data" => $result)));
     }
     catch(\Exception $exception){
-        $successStatus=400;
-        return response()->json(['message'=>'failed', 'status'=>$successStatus]);
+       return response()->json([
+                'message' => 'failed'], 400);
     }
     }
 
@@ -90,7 +90,8 @@ class levelController extends Controller
             return["Message"=>"Deleted"];
         }
         else{
-            return["Messgae"=>"Not deleted"];
+            return response()->json([
+                'message' => 'failed'], 400);
         }}
     }
 }

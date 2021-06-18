@@ -57,6 +57,7 @@ class staffController extends Controller
         $staff->designation=$req->designation;
         $staff->email=$req->email;
         $staff->yop=$req->yop;
+        $staff->status=1;
         $staff->section=$req->section;
         $user->email=$req->email;
         $staff->role=$req->role;
@@ -72,8 +73,8 @@ class staffController extends Controller
         }
     }
     catch(\Exception $exception){
-        $successStatus=400;
-        return response()->json(['message'=>'failed', 'status'=>$successStatus]);
+       return response()->json([
+                'message' => 'failed'], 400);
     }
     }
 
@@ -115,7 +116,8 @@ class staffController extends Controller
         $staff=staff::find($id);
         $user=DB::table('users')->where('email', '=', $staff->email)->delete();
         if($staff==null){
-            return["message"=>"No row found"];
+            return response()->json([
+                'message' => 'No row found.'], 400);
         }
         else{
         $result=$staff->delete();
@@ -123,7 +125,8 @@ class staffController extends Controller
             return["Message"=>"Deleted"];
         }
         else{
-            return["Messgae"=>"Not deleted"];
+            return response()->json([
+                'message' => 'failed'], 400);
         }}
     }
     function staffName(Request $req){
@@ -133,8 +136,8 @@ class staffController extends Controller
             return response()->json(['name'=>$staff, 'status'=>$successStatus]);
         }
         catch(\Exception $exception){
-            $successStatus=400;
-            return response()->json(['message'=>'failed', 'status'=>$successStatus]);
+            return response()->json([
+                'message' => 'failed'], 400);
         }
     }
 
@@ -169,7 +172,43 @@ class staffController extends Controller
         }
     }
 
-    // function addPoint(Request $req){
+    function blockStaff($id){
+        try{
+            $staff=staff::find($id);
+            $staff->status=0;
+            $result=$staff->save();
+            if($result){
+                return["Message"=>"Success"];
+            }
+            else{
+                return response()->json([
+                    'message' => 'failed'], 400);
+            }
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'message' => 'failed'], 400);
+        }
+    }
 
-    // }
+    function unblockStaff($id){
+        try{
+            $staff=staff::find($id);
+            $staff->status=0;
+            $result=$staff->save();
+            if($result){
+                return["Message"=>"Success"];
+            }
+            else{
+                return response()->json([
+                    'message' => 'failed'], 400);
+            }
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'message' => 'failed'], 400);
+        }
+    }
 }
+
+

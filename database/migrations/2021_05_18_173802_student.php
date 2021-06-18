@@ -22,6 +22,8 @@ class Student extends Migration
             $table->integer('yop');
             $table->string('email')->unique();
             $table->integer('semester');
+            $table->integer('status');
+            $table->integer('c_count');
             $table->string('section');
             $table->bigInteger('staff_id')->unsigned()->nullable();
             $table->integer('points')->nullable();
@@ -38,7 +40,9 @@ class Student extends Migration
                 'register_no'=>'aa',
                 'password'=>"dsf",
                 'department_id'=>1,
+                'status'=>1,
                 'yop'=>2000,
+                'c_count'=>1,
                 'email'=>'level',
                 'semester'=>5,
                 'section'=>'a',

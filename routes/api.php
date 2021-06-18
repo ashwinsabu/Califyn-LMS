@@ -52,6 +52,14 @@ Route::put('student/staff/update',[studentController::class,'staffUpdate']);
 
 Route::post('student/certificate',[studentController::class,'studentCertificates']);
 
+Route::post('student/certificate/pending',[studentController::class,'sapprovalPending']);
+
+Route::post('student/certificate/rejected',[studentController::class,'sRejected']);
+
+Route::put('student/blockstaff/{id}',[studentController::class,'blockStudent']);
+
+Route::put('student/unblockstaff/{id}',[studentController::class,'unblockStudent']);
+
 //SPorts_games API
 Route::get('sports_game/read',[sports_gameController::class,'getData']);
 
@@ -85,7 +93,9 @@ Route::get('staff/unapproved/{id}',[staffController::class,'approvalPending']);
 
 Route::post('staff/confirmed',[staffController::class,'confirmed']);
 
+Route::put('staff/blockstaff/{id}',[staffController::class,'blockStaff']);
 
+Route::put('staff/unblockstaff/{id}',[staffController::class,'unblockStaff']);
 
 //professional_self_initiative API
 Route::get('psi/read',[professional_self_initiativesController::class,'getData']);

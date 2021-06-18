@@ -8,6 +8,7 @@ use App\User;
 use App\staff;
 use Illuminate\Support\Facades\Hash;
 use DB;
+use App\certificate;
 use Validator;
 
 
@@ -56,6 +57,8 @@ class studentController extends Controller
         $user->password = Hash::make($password);
         $student->department_id=$req->department_id;
         $student->yop=$req->yop;
+        $student->status=1;
+        $student->c_count=0;
         $student->email=$req->email;
         $user->email=$req->email;
         $student->semester=$req->semester;
@@ -71,8 +74,8 @@ class studentController extends Controller
         }
     }
         catch(\Exception $exception){
-            $successStatus=400;
-            return response()->json(['message'=>'failed', 'status'=>$successStatus]);
+            return response()->json([
+                'message' => 'failed'], 400);
         }
     }
 
@@ -97,8 +100,8 @@ class studentController extends Controller
         }
     }
     catch(\Exception $exception){
-        $successStatus=400;
-        return response()->json(['message'=>'failed', 'status'=>$successStatus]);
+       return response()->json([
+                'message' => 'failed'], 400);
     }
     }
 
@@ -115,45 +118,21 @@ class studentController extends Controller
             return["Message"=>"Deleted"];
         }
         else{
-            return["Messgae"=>"Not deleted"];
+            return response()->json([
+                'message' => 'failed'], 400);
         }}
     }
     catch(\Exception $exception){
-        $successStatus=400;
-        return response()->json(['message'=>'failed', 'status'=>$successStatus]);
+       return response()->json([
+                'message' => 'failed'], 400);
     }
     }
-
-    // function staffSelection(Request $req){
-    //     $staff=DB::table('staffs')
-    //             ->where('code',$req->code)
-    //             ->first();
-    //     if($staff){
-    //     $student=student::find($req->student_id);
-    //     if($student->staff_id==null){
-    //     $student->staff_id=$staff->id;
-    //     $result=$student->save();
-    //     if($result){
-    //         return["Message"=>"staff is assigned"];
-    //     }
-    //     else{
-    //         return["Result"=>"Failed due to an error."];
-    //     }
-    // }
-    // else{
-    //     return["message"=>"Staff is already assigned"];
-    // }
-    // }
-    // else{
-    //     return["message"=>"No staff with this code. Kindly recheck"];
-    //     }
-    // }
-
 
     function staffUpdate(Request $req){
         try{
         $staff=DB::table('staffs')
                 ->where('code',$req->code)
+                ->where('status',1)
                 ->first();
         if($staff){
             $student=student::find($req->student_id);
@@ -168,18 +147,18 @@ class studentController extends Controller
             }
         }
         else{
-            return["message"=>"No staff with this code. Kindly recheck"];
+            return["message"=>"No active staff with this code. Kindly recheck"];
             }
         }
         catch(\Exception $exception){
-            $successStatus=400;
-            return response()->json(['message'=>'failed', 'status'=>$successStatus]);
+            return response()->json([
+                'message' => 'failed'], 400);
         }
     }
 
     function studentCertificates(Request $req){
         try{
-            $result=DB::table('certificates')
+            $result=certificate::with('studentRelation','categoryRelation','levelRelation')
                         ->where('status',1)
                         ->where('student_id', $req->id)
                         ->where('semester', '=', $req->semester)
@@ -188,9 +167,78 @@ class studentController extends Controller
             return(response()->json(array( "data" => $result)));
         }
         catch(\Exception $e){
-            $successStatus=400;
-            return response()->json(['message'=>'failed', 'status'=>$successStatus]);
+            return response()->json([
+                'message' => 'failed'], 400);
         }
     }
+
+    function sapprovalPending(Request $req){
+        try{
+            $result = certificate::with('studentRelation','categoryRelation','levelRelation')
+                        ->where('status',0)
+                        ->where('student_id', $req->id)
+                        ->get();
+            return(response()->json(array( "data" => $result)));
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'message' => 'failed'], 400);
+        }
+    }
+
+
+    function sRejected(Request $req){
+        try{
+            $result=certificate::with('studentRelation','categoryRelation','levelRelation')
+                        ->where('status',2)
+                        ->where('student_id', $req->id)
+                        ->get();
+            return(response()->json(array( "data" => $result)));
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'message' => 'failed'], 400);
+        }
+    }
+
+    function blockStudent($id){
+        try{
+            $student=student::find($id);
+            $student->status=0;
+            $result=$student->save();
+            if($result){
+                return["Message"=>"Success"];
+            }
+            else{
+                return response()->json([
+                    'message' => 'failed'], 400);
+            }
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'message' => 'failed'], 400);
+        }
+    }
+
+    function unblockStudent($id){
+        try{
+            $student=student::find($id);
+            $student->status=0;
+            $result=$student->save();
+            if($result){
+                return["Message"=>"Success"];
+            }
+            else{
+                return response()->json([
+                    'message' => 'failed'], 400);
+            }
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'message' => 'failed'], 400);
+        }
+    }
+
+
 
 }

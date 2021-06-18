@@ -17,8 +17,6 @@ class leadership_managementsController extends Controller
         return(response()->json(array( "data" => $result)));
     }
     function add(Request $req){
-
-        'activity', 'points', 'level_id','max_points','duration'
         $lm=new leadership_management;
         $lm->activity=$req->activity;
         $lm->points=$req->points;
@@ -63,7 +61,8 @@ class leadership_managementsController extends Controller
             return["Message"=>"Deleted"];
         }
         else{
-            return["Messgae"=>"Not deleted"];
+            return response()->json([
+                'message' => 'failed'], 400);
         }}
     }
 }

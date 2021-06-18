@@ -21,7 +21,7 @@ class certificate extends Model
     }
 
     public function levelRelation(){
-        return $this->hasOne( department::class,'id', 'level_id');
+        return $this->hasOne( level::class,'id', 'level_id');
     }
 
     public $createRules = array(

@@ -59,7 +59,8 @@ class entrepreneurship_innovationController extends Controller
             return["Message"=>"Deleted"];
         }
         else{
-            return["Messgae"=>"Not deleted"];
+            return response()->json([
+                'message' => 'failed'], 400);
         }}
     }
 }

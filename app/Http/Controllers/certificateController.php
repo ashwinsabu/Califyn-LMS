@@ -27,7 +27,6 @@ class certificateController extends Controller
         if ($val->fails()) {
             return response()->json($val->errors(),422);
         }
-
         $cal=categorie::find($req->category_id);
         $stud=student::find($req->student_id);
         $point = DB::table('points')
@@ -36,10 +35,10 @@ class certificateController extends Controller
                                 ->where('category_id',$req->category_id)
                                 ->value('points');
                     $tpoint = DB::table('certificates')
-                                ->join('categories', 'certificates.category_id', '=', 'categories.id')
-                                ->where('categories.code', '=', 'cat')
-                                ->where('certificates.student_id', '=', $req->student_id)
-                                ->sum('certificates.points');
+                                ->where('activity_id',$req->activity_id)
+                                ->where('category_id',$req->category_id)
+                                ->where('student_id', '=', $req->student_id)
+                                ->sum('points');
                     $max = DB::table('points')
                                 ->where('activity_id',$req->activity_id)
                                 ->where('level_id',$req->level_id)
@@ -163,8 +162,8 @@ class certificateController extends Controller
         }}
     }
     catch(\Exception $exception){
-        $successStatus=400;
-        return response()->json(['message'=>'failed', 'status'=>$successStatus]);
+       return response()->json([
+                'message' => 'failed'], 400);
     }
     }
 
@@ -184,8 +183,8 @@ class certificateController extends Controller
             }
         }
         catch(\Exception $e){
-            $successStatus=400;
-            return response()->json(['message'=>'failed', 'status'=>$successStatus]);
+            return response()->json([
+                'message' => 'failed'], 400);
         }
     }
 
@@ -197,6 +196,7 @@ class certificateController extends Controller
             $cert->about="Points are added";
             $stud= student::find($cert->student_id);
             $stud->points=$stud->points + $cert->points;
+            $stud->c_count=$stud->c_count+1;
             if($cert->save() && $stud->save()){
                 return response()->json([
                     'message' => 'Success'], 200);

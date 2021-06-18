@@ -20,6 +20,7 @@ class Staff extends Migration
             $table->string('password');
             $table->string('designation');
             $table->integer('yop');
+            $table->integer('status');
             $table->string('section');
             $table->string('code')->nullable();
             $table->bigInteger('department_id')->unsigned();
@@ -33,6 +34,7 @@ class Staff extends Migration
                 'password'=>Hash::make('admin'),
                 'yop'=>1222,
                 'section'=>'A',
+                'status'=>1,
                 'department_id'=>1,
                 'designation'=>'Advisor',
                 'email'=>'admin',
@@ -47,6 +49,7 @@ class Staff extends Migration
                 'password'=>'aa',
                 'yop'=>1222,
                 'section'=>'A',
+                'status'=>1,
                 'department_id'=>1,
                 'designation'=>'Advisor',
                 'email'=>'abeys',
