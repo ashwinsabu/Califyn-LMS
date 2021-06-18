@@ -240,5 +240,24 @@ class studentController extends Controller
     }
 
 
+    //Gives the list of students under each faculty
+    function studentFaculty($id){
+        try{
+            $result=student::where('staff_id',$id)->get();
+            if(! $result){
+                abort(404);
+            }
+            else{
+                return(response()->json(array( "data" => $result)));
+            }
+
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'message' => 'failed'], 400);
+        }
+    }
+
+
 
 }

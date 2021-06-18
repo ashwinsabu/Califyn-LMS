@@ -60,6 +60,8 @@ Route::put('student/blockstaff/{id}',[studentController::class,'blockStudent']);
 
 Route::put('student/unblockstaff/{id}',[studentController::class,'unblockStudent']);
 
+Route::get('student/staff/{id}',[studentController::class,'studentFaculty']);
+
 //SPorts_games API
 Route::get('sports_game/read',[sports_gameController::class,'getData']);
 
