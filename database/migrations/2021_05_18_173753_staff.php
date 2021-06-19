@@ -37,7 +37,6 @@ class Staff extends Migration
                 'section'=>'A',
                 'status'=>1,
                 'department_id'=>1,
-                'status' =>1,
                 'designation'=>'Advisor',
                 'email'=>'admin',
                 'role'=>'admin'
@@ -53,7 +52,6 @@ class Staff extends Migration
                 'section'=>'A',
                 'status'=>1,
                 'department_id'=>1,
-                'status' =>1,
                 'designation'=>'Advisor',
                 'email'=>'abeys',
                 'role'=>'role'

@@ -44,7 +44,6 @@ class Student extends Migration
                 'yop'=>2000,
                 'c_count'=>1,
                 'email'=>'level',
-                'status' =>1,
                 'certicate_count' =>0,
                 'semester'=>5,
                 'section'=>'a',
