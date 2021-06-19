@@ -112,23 +112,23 @@ class staffController extends Controller
         }
     }
 
-    function delete($id){
-        $staff=staff::find($id);
-        $user=DB::table('users')->where('email', '=', $staff->email)->delete();
-        if($staff==null){
-            return response()->json([
-                'message' => 'No row found.'], 400);
-        }
-        else{
-        $result=$staff->delete();
-        if($result  & $user){
-            return["Message"=>"Deleted"];
-        }
-        else{
-            return response()->json([
-                'message' => 'failed'], 400);
-        }}
-    }
+    // function delete($id){
+    //     $staff=staff::find($id);
+    //     $user=DB::table('users')->where('email', '=', $staff->email)->delete();
+    //     if($staff==null){
+    //         return response()->json([
+    //             'message' => 'No row found.'], 400);
+    //     }
+    //     else{
+    //     $result=$staff->delete();
+    //     if($result  & $user){
+    //         return["Message"=>"Deleted"];
+    //     }
+    //     else{
+    //         return response()->json([
+    //             'message' => 'failed'], 400);
+    //     }}
+    // }
     function staffName(Request $req){
         try{
             $successStatus=200;

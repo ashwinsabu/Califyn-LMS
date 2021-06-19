@@ -48,7 +48,7 @@ Route::put('student/update',[studentController::class,'update']);
 
 Route::put('student/activate/{id}',[studentController::class,'activate']);
 
-Route::put('student/deactivate/{id}',[studentController::class,'deactivate']);
+//Route::put('student/deactivate/{id}',[studentController::class,'deactivate']);
 
 Route::put('student/staff/update',[studentController::class,'staffUpdate']);
 
