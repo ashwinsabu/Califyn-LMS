@@ -46,7 +46,9 @@ Route::post('student/add',[studentController::class,'add']);
 
 Route::put('student/update',[studentController::class,'update']);
 
-Route::delete('student/delete/{id}',[studentController::class,'delete']);
+Route::put('student/activate/{id}',[studentController::class,'activate']);
+
+Route::put('student/deactivate/{id}',[studentController::class,'deactivate']);
 
 Route::put('student/staff/update',[studentController::class,'staffUpdate']);
 
@@ -89,7 +91,9 @@ Route::put('staff/update',[staffController::class,'update']);
 
 Route::put('staff/code',[staffController::class,'codeGenerator']);
 
-Route::delete('staff/delete/{id}',[staffController::class,'delete']);
+Route::put('staff/deactivate/{id}',[staffController::class,'deactivate']);
+
+Route::put('staff/activate/{id}',[staffController::class,'activate']);
 
 Route::get('staff/unapproved/{id}',[staffController::class,'approvalPending']);
 

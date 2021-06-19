@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\certificate;
 use App\student;
+use App\staff;
 use App\categorie;
 use DB;
 use Validator;
@@ -29,6 +30,11 @@ class certificateController extends Controller
         }
         $cal=categorie::find($req->category_id);
         $stud=student::find($req->student_id);
+        $staf=staff::find($stud->staff_id);
+        if($staf->status==0){
+            return response()->json([
+                'message' => 'Update your staff. Staff account is deactivated.'], 403);
+        }
         $point = DB::table('points')
                                 ->where('activity_id',$req->activity_id)
                                 ->where('level_id',$req->level_id)
@@ -85,37 +91,6 @@ class certificateController extends Controller
                     }
     }
 
-    function add2(Request $req){
-        $cert=new certificate;
-        $val = Validator::make($req->all(),$cert->createRules);
-        if ($val->fails()) {
-            return response()->json($val->errors(),422);
-        }
-        $cert->prize=$req->prize;
-        $cert->name=$req->name;
-        if($req->file('image') != null){
-            $image=$req->file('image')->store('certificates');
-            $cert->image='storage/'.$image;
-        }
-        $cert->semester=$req->semester;
-        $cert->student_id=$req->student_id;
-        $cert->organized_by=$req->organized_by;
-        $cert->day=$req->day;
-        $cert->points=10;
-        $cert->activity_id=$req->activity_id;
-        $cert->status=0;
-        $cert->category_id=$req->category_id;
-        $cert->staff_id=$req->staff_id;
-        $cert->level_id=$req->level_id;
-        $result=$cert->save();
-        if($result){
-            return["message"=>"Success"];
-        }
-        else{
-            return response()->json([
-            'message' => 'Request failed.'], 404);
-        }
-    }
 
     function update(Request $req){
         $cert=certificate::find($req->id);
@@ -150,16 +125,25 @@ class certificateController extends Controller
         try{
         $cert=certificate::find($id);
         if($cert==null){
-            return["message"=>"No row found"];
+            return response()->json([
+                'message' => 'No data'], 400);
         }
-        else{
-        $result=$cert->delete();
-        if($result){
-            return["message"=>"Deleted"];
-        }
-        else{
-            return["message"=>"Not deleted"];
-        }}
+        
+        if($cert->status==0){
+            $result=$cert->delete();
+            if($result){
+                return["message"=>"Deleted"];
+            }
+            else{
+                return response()->json([
+                    'message' => 'failed'], 400);
+            }
+
+    }
+    else{
+        return response()->json([
+            'message' => 'certificate cannot be deleted as it is not in pending list'], 400);
+    }
     }
     catch(\Exception $exception){
        return response()->json([

@@ -23,6 +23,9 @@ public $successStatus = 200;
             if(!$result){
                 $result= staff::where('email',request('email'))->first();
             }
+            if($result->status==0){
+                return response()->json(['error'=>'Account deactivated. Contact your college authorities.'], 401); 
+            }
             $user = Auth::user(); 
             $success['token'] =  $user->createToken('MyApp')-> accessToken; 
             if($user->email_verified_at==null){
@@ -34,7 +37,7 @@ public $successStatus = 200;
             }
         } 
         else{ 
-            return response()->json(['error'=>'Unauthorised'], 401); 
+            return response()->json(['error'=>'Check your credentials'], 401); 
         } 
     }
 /** 

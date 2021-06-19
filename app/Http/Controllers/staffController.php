@@ -194,7 +194,7 @@ class staffController extends Controller
     function unblockStaff($id){
         try{
             $staff=staff::find($id);
-            $staff->status=0;
+            $staff->status=1;
             $result=$staff->save();
             if($result){
                 return["Message"=>"Success"];

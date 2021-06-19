@@ -22,6 +22,7 @@ class Staff extends Migration
             $table->integer('yop');
             $table->integer('status');
             $table->string('section');
+            $table->integer('status');
             $table->string('code')->nullable();
             $table->bigInteger('department_id')->unsigned();
             $table->foreign('department_id')->references('id')->on('departments');
@@ -36,6 +37,7 @@ class Staff extends Migration
                 'section'=>'A',
                 'status'=>1,
                 'department_id'=>1,
+                'status' =>1,
                 'designation'=>'Advisor',
                 'email'=>'admin',
                 'role'=>'admin'
@@ -51,6 +53,7 @@ class Staff extends Migration
                 'section'=>'A',
                 'status'=>1,
                 'department_id'=>1,
+                'status' =>1,
                 'designation'=>'Advisor',
                 'email'=>'abeys',
                 'role'=>'role'

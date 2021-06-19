@@ -63,6 +63,8 @@ class studentController extends Controller
         $user->email=$req->email;
         $user->position=2;
         $student->semester=$req->semester;
+        $student->certicate_count=0;
+        $student->status=1;
         $student->section=$req->section;
         $student->points=$req->points;
         
@@ -106,22 +108,18 @@ class studentController extends Controller
     }
     }
 
-    function delete($id){
+    function deactivate($id){
         try{
         $student=student::find($id);
-        $user=DB::table('users')->where('email', '=', $student->email)->delete();
-        if($student==null){
-            return["message"=>"No row found"];
-        }
-        else{
-        $result=$student->delete();
-        if($result & $user){
-            return["Message"=>"Deleted"];
+        $student->status=0;
+        $result=$student->save();
+        if($result){
+            return["Message"=>"Success"];
         }
         else{
             return response()->json([
                 'message' => 'failed'], 400);
-        }}
+        }
     }
     catch(\Exception $exception){
        return response()->json([
@@ -224,7 +222,7 @@ class studentController extends Controller
     function unblockStudent($id){
         try{
             $student=student::find($id);
-            $student->status=0;
+            $student->status=1;
             $result=$student->save();
             if($result){
                 return["Message"=>"Success"];
