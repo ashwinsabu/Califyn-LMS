@@ -22,7 +22,6 @@ class Staff extends Migration
             $table->integer('yop');
             $table->integer('status');
             $table->string('section');
-            $table->integer('status');
             $table->string('code')->nullable();
             $table->bigInteger('department_id')->unsigned();
             $table->foreign('department_id')->references('id')->on('departments');
