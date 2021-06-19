@@ -23,6 +23,8 @@ Route::get('students',[studentController::class,'getData']);
 
 Auth::routes();
 
+Route::view('noaccess','noaccess');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();

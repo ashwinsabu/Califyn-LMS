@@ -39,12 +39,13 @@ Route::get('email/resend',  [VerificationController::class,'resend']);
 Route::post('login',[userController::class,'login']);
 //Student API
 
-
-
-
 Route::post('student/add',[studentController::class,'add']);
 
-Route::put('student/update',[studentController::class,'update']);
+Route::group(['middleware' => 'auth:api'], function(){
+    //Student table API
+    Route::get('student/read',[studentController::class,'getData']);
+    Route::get('student/read/{id?}',[studentController::class,'getData1']);
+    Route::put('student/update',[studentController::class,'update']);
 
 Route::put('student/activate/{id}',[studentController::class,'activate']);
 
@@ -213,18 +214,18 @@ Route::post('certificate/add',[certificateController::class,'add']);
 Route::post('certificate/test2',[certificateController::class,'add2']);
 
 
-Route::group(['middleware' =>['protectedpages']],function(){
-    Route::get('student/read',[studentController::class,'getData']);
-    Route::get('student/read/{id?}',[studentController::class,'getData1']);
-});
+    });
+
+
+
+
+// Route::group(['middleware' =>['protectedpages']],function(){
+    
+// });
 
 Route::fallback(function(){
     return response()->json([
         'message' => 'Page Not Found. If error persists, contact ashwinsabu2000@gmail.com'], 404);
 });
-// Route::group(['middleware' => 'auth:api'], function(){
-//     //Student table API
-
-//     });
 
  

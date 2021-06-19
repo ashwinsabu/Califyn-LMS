@@ -69,12 +69,12 @@ class studentController extends Controller
         
         if($student->save() && $user->save()){
             $success['token'] =  $user->createToken('MyApp')-> accessToken; 
-            return response()->json(['message'=>'success','success'=>$success, $this-> successStatus]); 
+            return response()->json(['message'=>'success','success'=>$success,'status' => $this-> successStatus]); 
         }
         else{
             return response()->json(false,400);
         }
-    }
+        }
         catch(\Exception $exception){
             return response()->json([
                 'message' => 'failed'], 400);
