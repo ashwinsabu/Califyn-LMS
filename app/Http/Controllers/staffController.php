@@ -57,6 +57,7 @@ class staffController extends Controller
         $staff->designation=$req->designation;
         $staff->email=$req->email;
         $staff->yop=$req->yop;
+        $user->position=1;
         $staff->status=1;
         $staff->section=$req->section;
         $user->email=$req->email;
@@ -103,8 +104,7 @@ class staffController extends Controller
         $staff->role=$req->role;
         $result=$staff->save();
         if($result){
-            $success['token'] =  $user->createToken('MyApp')-> accessToken; 
-            return response()->json(['success'=>$success], $this-> successStatus); 
+            return["Message"=>"Success"];
         }
         else{
             return response()->json([

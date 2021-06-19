@@ -61,6 +61,7 @@ class studentController extends Controller
         $student->c_count=0;
         $student->email=$req->email;
         $user->email=$req->email;
+        $user->position=2;
         $student->semester=$req->semester;
         $student->section=$req->section;
         $student->points=$req->points;
