@@ -10,17 +10,6 @@ use DB;
 
 class forgotPassword extends Controller
 {
-    function generateOtp(Request $req){
-        $otp=rand(10000,99999);
-        $user=User::where('email',$req->email)->get();
-        $user->otp=$otp;
-        if($user->save()){
-            return["message"=>"OTP Send Successfully"];
-        }
-        Mail::to($req->email)->send(new OtpSender($otp));
-        
-    }
-
     function generateOtp1(Request $req){
         $otp=rand(10000,99999);
         $result=DB::table('users')

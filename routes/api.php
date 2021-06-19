@@ -46,10 +46,15 @@ Route::post('student/add',[studentController::class,'add']);
 
 Route::post('generateotp',[forgotPassword::class,'generateOtp1']);
 
-Route::group(['middleware' => 'auth:api'], function(){
-    //Student table API
+Route::group(['middleware' =>['protectedstudents']],function(){
     Route::get('student/read',[studentController::class,'getData']);
     Route::get('student/read/{id?}',[studentController::class,'getData1']);
+});
+
+
+Route::group(['middleware' => 'auth:api'], function(){
+    //Student table API
+    
     Route::put('student/update',[studentController::class,'update']);
 
 Route::put('student/activate/{id}',[studentController::class,'activate']);
@@ -221,9 +226,6 @@ Route::post('certificate/add',[certificateController::class,'add']);
 
 
 
-Route::group(['middleware' =>['protectedstudents']],function(){
-    //
-});
 
 Route::fallback(function(){
     return response()->json([

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
+
 class CheckStaff
 {
     /**
@@ -14,10 +15,9 @@ class CheckStaff
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {
-
-        if($request->position != 2){
-            return route('login');
+    {   
+        if($request->position && $request->position != 1){
+            return redirect('noaccess');
         }
         return $next($request);
     }
