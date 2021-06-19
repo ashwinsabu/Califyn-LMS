@@ -38,6 +38,9 @@ Route::get('email/resend',  [VerificationController::class,'resend']);
 //LATEST
 Route::post('login',[userController::class,'login']);
 //Student API
+Route::get('department/read',[departmentController::class,'getData']);
+
+Route::get('department/read/{id}',[departmentController::class,'getData1']);
 
 Route::post('student/add',[studentController::class,'add']);
 
@@ -175,9 +178,6 @@ Route::put('cap/update',[cultural_acitivities_participationsController::class,'u
 Route::delete('cap/delete/{id}',[cultural_acitivities_participationsController::class,'delete']);
 
 //department API
-Route::get('department/read',[departmentController::class,'getData']);
-
-Route::get('department/read/{id}',[departmentController::class,'getData1']);
 
 Route::post('department/add',[departmentController::class,'add']);
 
