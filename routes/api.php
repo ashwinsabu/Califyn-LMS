@@ -17,7 +17,7 @@ use App\Http\Controllers\certificateController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\activityController;
-
+use App\Http\Controllers\forgotPassword;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +41,8 @@ Route::post('login',[userController::class,'login']);
 
 Route::post('student/add',[studentController::class,'add']);
 
+Route::post('generateotp',[forgotPassword::class,'generateOtp1']);
+
 Route::group(['middleware' => 'auth:api'], function(){
     //Student table API
     Route::get('student/read',[studentController::class,'getData']);
@@ -59,11 +61,13 @@ Route::post('student/certificate/pending',[studentController::class,'sapprovalPe
 
 Route::post('student/certificate/rejected',[studentController::class,'sRejected']);
 
-Route::put('student/blockstaff/{id}',[studentController::class,'blockStudent']);
+Route::put('student/blockstudent/{id}',[studentController::class,'blockStudent']);
 
-Route::put('student/unblockstaff/{id}',[studentController::class,'unblockStudent']);
+Route::put('student/unblockstudent/{id}',[studentController::class,'unblockStudent']);
 
 Route::get('student/staff/{id}',[studentController::class,'studentFaculty']);
+
+
 
 //SPorts_games API
 Route::get('sports_game/read',[sports_gameController::class,'getData']);
@@ -211,17 +215,15 @@ Route::put('certificate/approve',[certificateController::class,'approve']);
 
 Route::post('certificate/add',[certificateController::class,'add']);
 
-Route::post('certificate/test2',[certificateController::class,'add2']);
-
 
     });
 
 
 
 
-// Route::group(['middleware' =>['protectedpages']],function(){
-    
-// });
+Route::group(['middleware' =>['protectedstudents']],function(){
+    //
+});
 
 Route::fallback(function(){
     return response()->json([

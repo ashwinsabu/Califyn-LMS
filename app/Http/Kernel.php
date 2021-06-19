@@ -44,8 +44,11 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
-        'protectedpages' => [
+        'protectedstudents' => [
             \App\Http\Middleware\CheckUser::class,
+        ],
+        'protectedstaff' => [
+            \App\Http\Middleware\CheckStaff::class,
         ],
     ];
 

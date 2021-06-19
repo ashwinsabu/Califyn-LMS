@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class CheckUser
+class CheckStaff
 {
     /**
      * Handle an incoming request.
@@ -15,6 +15,7 @@ class CheckUser
      */
     public function handle($request, Closure $next)
     {
+
         if($request->position != 2){
             return route('login');
         }
