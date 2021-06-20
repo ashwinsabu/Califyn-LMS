@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+use Illuminate\Support\Facades\Auth;
 
 use Closure;
 
@@ -16,8 +17,8 @@ class CheckStaff
      */
     public function handle($request, Closure $next)
     {   
-        if($request->position && $request->position != 1){
-            return redirect('noaccess');
+        if(Auth::user()->position != 1){
+            return "no";
         }
         return $next($request);
     }

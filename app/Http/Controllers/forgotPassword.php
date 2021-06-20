@@ -18,7 +18,7 @@ class forgotPassword extends Controller
               ->update(['otp' => $otp]);
         
         if($result){
-            Mail::to($req->email)->send(new OtpSender($otp));
+            // Mail::to($req->email)->send(new OtpSender($otp));
             return["Message"=>"Success"];
         }
         else{

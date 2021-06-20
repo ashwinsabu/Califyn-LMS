@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+use Illuminate\Support\Facades\Auth;
 
 use Closure;
 
@@ -15,7 +16,7 @@ class checkAdmin
      */
     public function handle($request, Closure $next)
     {
-        if($request->position && $request->position != 0){
+        if(Auth::user()->position != 0){
             return redirect('noaccess');
         }
         return $next($request);

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+use Illuminate\Support\Facades\Auth;
 
 use Closure;
 
@@ -15,7 +16,7 @@ class CheckUser
      */
     public function handle($request, Closure $next)
     {   
-        if($request->position && $request->position != 2){
+        if(Auth::user()->position != 2){
             return redirect('noaccess');
         }
         return $next($request);
