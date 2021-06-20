@@ -3,27 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\leadership_management;
+use App\point;
 
-class leadership_managementsController extends Controller
+class pointController extends Controller
 {
     function getData(){
-        $result =leadership_management::all();
+        $result =point::all();
         return(response()->json(array( "data" => $result)));
     }
 
     function getData1($id){
-        $result= leadership_management::find($id);
+        $result= point::find($id);
         return(response()->json(array( "data" => $result)));
     }
     function add(Request $req){
-        $lm=new leadership_management;
-        $lm->activity=$req->activity;
-        $lm->points=$req->points;
-        $lm->level_id=$req->level_id;
-        $lm->duration=$req->duration;
-        $lm->max_points=$req->max_points;
-        $result=$lm->save();
+        $points=new point;
+        $points->activity_id=$req->activity_id;
+        $points->level_id=$req->level_id;
+        $points->points=$req->points;
+        $points->category_id=$req->category_id;
+        $points->max_points=$req->max_points;
+        $points->duration=$req->duration;
+        $result=$points->save();
         if($result){
             return["Message"=>"Success"];
         }
@@ -34,13 +35,14 @@ class leadership_managementsController extends Controller
     }
 
     function update(Request $req){
-        $lm=leadership_management::find($req->id);
-        $lm->activity=$req->activity;
-        $lm->points=$req->points;
-        $lm->level_id=$req->level_id;
-        $lm->duration=$req->duration;
-        $lm->max_points=$req->max_points;
-        $result=$lm->save();
+        $points=point::find($req->id);
+        $points->activity_id=$req->activity_id;
+        $points->level_id=$req->level_id;
+        $points->points=$req->points;
+        $points->category_id=$req->category_id;
+        $points->max_points=$req->max_points;
+        $points->duration=$req->duration;
+        $result=$points->save();
         if($result){
             return["Message"=>"Success"];
         }
@@ -51,12 +53,12 @@ class leadership_managementsController extends Controller
     }
 
     function delete($id){
-        $lm=leadership_management::find($id);
-        if($lm==null){
+        $points=point::find($id);
+        if($points==null){
             return["message"=>"No row found"];
         }
         else{
-        $result=$lm->delete();
+        $result=$points->delete();
         if($result){
             return["Message"=>"Deleted"];
         }

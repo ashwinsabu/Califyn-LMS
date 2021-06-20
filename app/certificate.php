@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\student;
 use App\categorie;
 use App\level;
+use App\activity;
 use App\staff;
 class certificate extends Model
 {
@@ -22,6 +23,10 @@ class certificate extends Model
 
     public function levelRelation(){
         return $this->hasOne( level::class,'id', 'level_id');
+    }
+
+    public function activityRelation(){
+        return $this->hasOne( activity::class,'id', 'activity_id');
     }
 
     public $createRules = array(

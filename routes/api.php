@@ -18,6 +18,7 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\activityController;
 use App\Http\Controllers\forgotPassword;
+use App\Http\Controllers\pointController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,179 +47,139 @@ Route::post('student/add',[studentController::class,'add']);
 
 Route::post('generateotp',[forgotPassword::class,'generateOtp1']);
 
+Route::post('otp/validate',[forgotPassword::class,'validataOtp']);
+
+Route::post('otp/update',[forgotPassword::class,'updatePassword']);
+
+Route::post('staff/add/admin',[staffController::class,'addAdmin']);
+
+Route::get('user',[userController::class,'getData']);
+
 Route::group(['middleware' =>['protectedstudents']],function(){
     Route::get('student/read',[studentController::class,'getData']);
     Route::get('student/read/{id?}',[studentController::class,'getData1']);
 });
 
-
+Route::put('student/blockstudent/{id}',[studentController::class,'blockStudent']);
 Route::group(['middleware' => 'auth:api'], function(){
     //Student table API
     
+    Route::post('logout',[userController::class,'logout']);
+
     Route::put('student/update',[studentController::class,'update']);
 
-Route::put('student/activate/{id}',[studentController::class,'activate']);
+    Route::put('student/activate/{id}',[studentController::class,'activate']);
 
-//Route::put('student/deactivate/{id}',[studentController::class,'deactivate']);
+    //Route::put('student/deactivate/{id}',[studentController::class,'deactivate']);
 
-Route::put('student/staff/update',[studentController::class,'staffUpdate']);
+    Route::put('student/staff/update',[studentController::class,'staffUpdate']);
 
-Route::post('student/certificate',[studentController::class,'studentCertificates']);
+    Route::post('student/certificate',[studentController::class,'studentCertificates']);
 
-Route::post('student/certificate/pending',[studentController::class,'sapprovalPending']);
+    Route::post('student/certificate/pending',[studentController::class,'sapprovalPending']);
 
-Route::post('student/certificate/rejected',[studentController::class,'sRejected']);
+    Route::post('student/certificate/rejected',[studentController::class,'sRejected']);
 
-Route::put('student/blockstudent/{id}',[studentController::class,'blockStudent']);
+    
 
-Route::put('student/unblockstudent/{id}',[studentController::class,'unblockStudent']);
+    Route::put('student/unblockstudent/{id}',[studentController::class,'unblockStudent']);
 
-Route::get('student/staff/{id}',[studentController::class,'studentFaculty']);
+    Route::get('student/staff/{id}',[studentController::class,'studentFaculty']);
 
 
+    //Activity
+    Route::post('activity/read',[activityController::class,'getData']);
 
-//SPorts_games API
-Route::get('sports_game/read',[sports_gameController::class,'getData']);
 
-Route::get('sports_game/read/{id?}',[sports_gameController::class,'getData1']);
+    Route::post('activity/add',[activityController::class,'add']);
 
-Route::post('sports_game/add',[sports_gameController::class,'add']);
 
-Route::put('sports_game/update',[sports_gameController::class,'update']);
 
-Route::delete('sports_game/delete/{id}',[sports_gameController::class,'delete']);
+    //staff API
+    Route::get('staff/read',[staffController::class,'getData']);
 
-//Activity
-Route::post('activity/read',[activityController::class,'getData']);
+    Route::get('staff/read/{id?}',[staffController::class,'getData1']);
 
-//staff API
-Route::get('staff/read',[staffController::class,'getData']);
+    Route::post('staff/read/name',[staffController::class,'staffName']);
 
-Route::get('staff/read/{id?}',[staffController::class,'getData1']);
+    Route::post('staff/add',[staffController::class,'add']);
 
-Route::post('staff/read/name',[staffController::class,'staffName']);
+    Route::put('staff/update',[staffController::class,'update']);
 
-Route::post('staff/add',[staffController::class,'add']);
+    Route::put('staff/code',[staffController::class,'codeGenerator']);
 
-Route::put('staff/update',[staffController::class,'update']);
+    Route::put('staff/deactivate/{id}',[staffController::class,'deactivate']);
 
-Route::put('staff/code',[staffController::class,'codeGenerator']);
+    Route::put('staff/activate/{id}',[staffController::class,'activate']);
 
-Route::put('staff/deactivate/{id}',[staffController::class,'deactivate']);
+    Route::get('staff/unapproved/{id}',[staffController::class,'approvalPending']);
 
-Route::put('staff/activate/{id}',[staffController::class,'activate']);
+    Route::post('staff/confirmed',[staffController::class,'confirmed']);
 
-Route::get('staff/unapproved/{id}',[staffController::class,'approvalPending']);
+    Route::put('staff/blockstaff/{id}',[staffController::class,'blockStaff']);
 
-Route::post('staff/confirmed',[staffController::class,'confirmed']);
+    Route::put('staff/unblockstaff/{id}',[staffController::class,'unblockStaff']);
 
-Route::put('staff/blockstaff/{id}',[staffController::class,'blockStaff']);
+    //level API
+    Route::post('level/read',[levelController::class,'getData1']);
 
-Route::put('staff/unblockstaff/{id}',[staffController::class,'unblockStaff']);
+    Route::get('level/read_all',[levelController::class,'getData']);
 
-//professional_self_initiative API
-Route::get('psi/read',[professional_self_initiativesController::class,'getData']);
+    Route::post('level/add',[levelController::class,'add']);
 
-Route::get('psi/read/{id}',[professional_self_initiativesController::class,'getData1']);
+    Route::put('level/update',[levelController::class,'update']);
 
-Route::post('psi/add',[professional_self_initiativesController::class,'add']);
+    Route::delete('level/delete/{id}',[levelController::class,'delete']);
 
-Route::put('psi/update',[professional_self_initiativesController::class,'update']);
+    //department API
 
-Route::delete('psi/delete/{id}',[professional_self_initiativesController::class,'delete']);
+    Route::post('department/add',[departmentController::class,'add']);
 
-//national_initiative API
-Route::get('ni/read',[national_initiativeController::class,'getData']);
+    Route::put('department/update',[departmentController::class,'update']);
 
-Route::get('ni/read/{id}',[national_initiativeController::class,'getData1']);
+    Route::delete('department/delete/{id}',[departmentController::class,'delete']);
 
-Route::post('ni/add',[national_initiativeController::class,'add']);
+    //category API
+    Route::get('category/read',[categorieController::class,'getData']);
 
-Route::put('ni/update',[national_initiativeController::class,'update']);
+    Route::get('category/read/{id}',[categorieController::class,'getData1']);
 
-Route::delete('ni/delete/{id}',[national_initiativeController::class,'delete']);
+    Route::get('category/activity/{id}',[categorieController::class,'activityList']);
 
-//leadership_management API
-Route::get('lm/read',[leadership_managementsController::class,'getData']);
+    Route::put('category/update',[categorieController::class,'update']);
 
-Route::get('lm/read/{id}',[leadership_managementsController::class,'getData1']);
+    Route::delete('category/delete/{id}',[categorieController::class,'delete']);
 
-Route::post('lm/add',[leadership_managementsController::class,'add']);
 
-Route::put('lm/update',[leadership_managementsController::class,'update']);
+    //certificate API
+    Route::get('certificate/read',[certificateController::class,'getData']);
 
-Route::delete('lm/delete/{id}',[leadership_managementsController::class,'delete']);
+    Route::get('certificate/read/{id}',[certificateController::class,'getData1']);
 
-//level API
-Route::post('level/read',[levelController::class,'getData1']);
+    //Route::post('certificate/add',[certificateController::class,'calculate']);
 
-Route::get('level/read_all',[levelController::class,'getData']);
+    Route::put('certificate/update',[certificateController::class,'update']);
 
-Route::post('level/add',[levelController::class,'add']);
+    Route::delete('certificate/delete/{id}',[certificateController::class,'delete']);
 
-Route::put('level/update',[levelController::class,'update']);
+    Route::put('certificate/reject',[certificateController::class,'reject']);
 
-Route::delete('level/delete/{id}',[levelController::class,'delete']);
 
-//entrepreneurship_innovation API
-Route::get('ei/read',[entrepreneurship_innovationController::class,'getData']);
+    Route::put('certificate/approve',[certificateController::class,'approve']);
 
-Route::get('ei/read/{id}',[entrepreneurship_innovationController::class,'getData1']);
+    Route::post('certificate/add',[certificateController::class,'add']);
 
-Route::post('ei/add',[entrepreneurship_innovationController::class,'add']);
 
-Route::put('ei/update',[entrepreneurship_innovationController::class,'update']);
+    //points API
+    Route::get('point/read',[pointController::class,'getData']);
 
-Route::delete('ei/delete/{id}',[entrepreneurship_innovationController::class,'delete']);
+    Route::get('point/read/{id}',[pointController::class,'getData1']);
 
-//cultural_acitivities_participation API
-Route::get('cap/read',[cultural_acitivities_participationsController::class,'getData']);
+    Route::post('point/add',[pointController::class,'add']);
 
-Route::get('cap/read/{id}',[cultural_acitivities_participationsController::class,'getData1']);
+    Route::put('point/update',[pointController::class,'update']);
 
-Route::post('cap/add',[cultural_acitivities_participationsController::class,'add']);
-
-Route::put('cap/update',[cultural_acitivities_participationsController::class,'update']);
-
-Route::delete('cap/delete/{id}',[cultural_acitivities_participationsController::class,'delete']);
-
-//department API
-
-Route::post('department/add',[departmentController::class,'add']);
-
-Route::put('department/update',[departmentController::class,'update']);
-
-Route::delete('department/delete/{id}',[departmentController::class,'delete']);
-
-//category API
-Route::get('category/read',[categorieController::class,'getData']);
-
-Route::get('category/read/{id}',[categorieController::class,'getData1']);
-
-Route::get('category/activity/{id}',[categorieController::class,'activityList']);
-
-Route::put('category/update',[categorieController::class,'update']);
-
-Route::delete('category/delete/{id}',[categorieController::class,'delete']);
-
-
-//certificate API
-Route::get('certificate/read',[certificateController::class,'getData']);
-
-Route::get('certificate/read/{id}',[certificateController::class,'getData1']);
-
-//Route::post('certificate/add',[certificateController::class,'calculate']);
-
-Route::put('certificate/update',[certificateController::class,'update']);
-
-Route::delete('certificate/delete/{id}',[certificateController::class,'delete']);
-
-Route::put('certificate/reject',[certificateController::class,'reject']);
-
-
-Route::put('certificate/approve',[certificateController::class,'approve']);
-
-Route::post('certificate/add',[certificateController::class,'add']);
+    Route::delete('point/delete/{id}',[pointController::class,'delete']);
 
 
     });

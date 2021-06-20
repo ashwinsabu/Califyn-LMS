@@ -172,7 +172,7 @@ class studentController extends Controller
 
     function sapprovalPending(Request $req){
         try{
-            $result = certificate::with('studentRelation','categoryRelation','levelRelation')
+            $result = certificate::with('studentRelation','categoryRelation','levelRelation','activityRelation')
                         ->where('status',0)
                         ->where('student_id', $req->id)
                         ->get();
@@ -187,7 +187,7 @@ class studentController extends Controller
 
     function sRejected(Request $req){
         try{
-            $result=certificate::with('studentRelation','categoryRelation','levelRelation')
+            $result=certificate::with('studentRelation','categoryRelation','levelRelation','activityRelation')
                         ->where('status',2)
                         ->where('student_id', $req->id)
                         ->get();

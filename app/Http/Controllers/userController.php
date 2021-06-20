@@ -6,6 +6,8 @@ use App\student;
 use App\staff;
 use Illuminate\Support\Facades\Auth; 
 use Validator;
+//use Laravel\Passport\HasApiTokens;
+use HasApiTokens;
 
 
 
@@ -17,6 +19,13 @@ public $successStatus = 200;
      * 
      * @return \Illuminate\Http\Response 
      */ 
+
+    function getData(){
+        $result =User::all();
+        return(response()->json(array( "data" => $result)));
+    }
+
+
     public function login(){ 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
             $result= student::where('email',request('email'))->first();
@@ -39,6 +48,12 @@ public $successStatus = 200;
         else{ 
             return response()->json(['error'=>'Check your credentials'], 401); 
         } 
+    }
+
+    public function logout(){
+        $user = Auth::user()->token();
+        $user->revoke();
+        return ["message"=>"Logged Out"]; // modify as per your need
     }
 /** 
      * Register api 

@@ -61,12 +61,45 @@ class staffController extends Controller
         $staff->status=1;
         $staff->section=$req->section;
         $user->email=$req->email;
-        $staff->role=$req->role;
+        $staff->role='Staff';
         $result=$staff->save();
         $result1=$user->save();
         if($result && $result1){
             $success['token'] =  $user->createToken('MyApp')-> accessToken; 
             return response()->json(['message'=>'success','success'=>$success, "statusCode"=>$this-> successStatus]); 
+        }
+        else{
+            return response()->json([
+                'message' => 'failed'], 400);
+        }
+    }
+    catch(\Exception $exception){
+       return response()->json([
+                'message' => 'failed'], 400);
+    }
+    }
+
+    function addAdmin(Request $req){
+        try{
+        $staff=new staff;
+        $user=new User;
+        $staff->name=$req->name;
+        $password=$req->password;
+        $staff->password = Hash::make($password);
+        $user->password = Hash::make($password);
+        $staff->department_id=1;
+        $staff->designation=$req->designation;
+        $staff->email=$req->email;
+        $staff->yop=0000;
+        $user->position=0;
+        $staff->status=1;
+        $staff->section='nill';
+        $user->email=$req->email;
+        $staff->role='Staff';
+        $result=$staff->save();
+        $result1=$user->save();
+        if($result && $result1){
+            return["message"=>"Created Successfully"];
         }
         else{
             return response()->json([
@@ -143,7 +176,7 @@ class staffController extends Controller
 
     function approvalPending($id){
         try{
-            $result=certificate::with('studentRelation','categoryRelation','levelRelation')
+            $result=certificate::with('studentRelation','categoryRelation','levelRelation','activityRelation')
                         ->where('staff_id', $id)
                         ->where('status',0)
                         ->get();
