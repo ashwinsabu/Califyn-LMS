@@ -32,59 +32,127 @@ use App\Http\Controllers\pointController;
 */
 
 
-Route::get('email/verify/{id}', [VerificationController::class,'verify'])->name('verification.verify'); // Make sure to keep this as your route name
+        Route::get('email/verify/{id}', [VerificationController::class,'verify'])->name('verification.verify'); // Make sure to keep this as your route name
 
-Route::get('email/resend',  [VerificationController::class,'resend']);
+        Route::get('email/send',  [VerificationController::class,'resend']);
 
-//LATEST
-Route::post('login',[userController::class,'login']);
-//Student API
-Route::get('department/read',[departmentController::class,'getData']);
+        //LATEST
+        Route::post('login',[userController::class,'login']);
+        //Student API
+        Route::get('department/read',[departmentController::class,'getData']);
 
-Route::get('department/read/{id}',[departmentController::class,'getData1']);
+        Route::get('department/read/{id}',[departmentController::class,'getData1']);
 
-Route::post('student/add',[studentController::class,'add']);
+        Route::post('student/add',[studentController::class,'add']);
 
-Route::post('generateotp',[forgotPassword::class,'generateOtp1']);
+        Route::post('generateotp',[forgotPassword::class,'generateOtp1']);
 
-Route::post('otp/validate',[forgotPassword::class,'validataOtp']);
+        Route::post('otp/validate',[forgotPassword::class,'validataOtp']);
 
-Route::post('otp/update',[forgotPassword::class,'updatePassword']);
+        Route::post('password/update',[forgotPassword::class,'updatePassword']);
 
-Route::post('staff/add/admin',[staffController::class,'addAdmin']);
+        Route::post('staff/add/admin',[staffController::class,'addAdmin']);
 
-Route::get('user',[userController::class,'getData']);
+        Route::get('user',[userController::class,'getData']);
 
-Route::group(['middleware' =>['protectedstudents']],function(){
-    Route::get('student/read',[studentController::class,'getData']);
-    Route::get('student/read/{id?}',[studentController::class,'getData1']);
-});
-
-Route::put('student/blockstudent/{id}',[studentController::class,'blockStudent']);
 Route::group(['middleware' => 'auth:api'], function(){
-    //Student table API
+
+    Route::group(['middleware' =>['protectedstudents']],function(){
+        Route::put('student/update',[studentController::class,'update']);
+
+        Route::put('student/staff/update',[studentController::class,'staffUpdate']);
+
+        Route::post('student/certificate',[studentController::class,'studentCertificates']);
+
+        Route::post('student/certificate/pending',[studentController::class,'sapprovalPending']);
+
+        Route::post('student/certificate/rejected',[studentController::class,'sRejected']);
+
+        Route::post('staff/read/name',[staffController::class,'staffName']);
+
+        Route::post('certificate/add',[certificateController::class,'add']);
+    });
+
+
+
+    Route::group(['middleware' =>['protectedstaff']],function(){
+        Route::get('student/staff/{id}',[studentController::class,'studentFaculty']);
+
+        Route::put('staff/update',[staffController::class,'update']);
+
+        Route::put('staff/code',[staffController::class,'codeGenerator']);
+
+        Route::get('staff/unapproved/{id}',[staffController::class,'approvalPending']);
+
+        Route::post('staff/confirmed',[staffController::class,'confirmed']);
+
+        Route::put('certificate/reject',[certificateController::class,'reject']);
+
+
+        Route::put('certificate/approve',[certificateController::class,'approve']);
+    });
+
+
+
+    Route::group(['middleware' =>['protectedadmin']],function(){
+        Route::put('student/blockstudent/{id}',[studentController::class,'blockStudent']);
+
+        Route::put('student/unblockstudent/{id}',[studentController::class,'unblockStudent']);
+
+        Route::get('student/read',[studentController::class,'getData']);
+
+        Route::get('student/read/{id?}',[studentController::class,'getData1']);
+
+        Route::get('staff/read',[staffController::class,'getData']);
+
+        Route::get('staff/read/{id?}',[staffController::class,'getData1']);
+
+        Route::post('staff/add',[staffController::class,'add']);
+
+        Route::put('staff/blockstaff/{id}',[staffController::class,'blockStaff']);
+
+        Route::put('staff/unblockstaff/{id}',[staffController::class,'unblockStaff']);
+
+        Route::post('level/add',[levelController::class,'add']);
+
+        Route::put('level/update',[levelController::class,'update']);
+
+        Route::delete('level/delete/{id}',[levelController::class,'delete']);
+
+        Route::post('department/add',[departmentController::class,'add']);
+
+        Route::put('department/update',[departmentController::class,'update']);
+
+        Route::put('category/update',[categorieController::class,'update']);
+
+        Route::put('category/add',[categorieController::class,'add']);
+
+        Route::get('certificate/read',[certificateController::class,'getData']);
+
+        Route::get('certificate/read/{id}',[certificateController::class,'getData1']);
+
+        
+        //points API
+        Route::get('point/read',[pointController::class,'getData']);
+
+        Route::get('point/read/{id}',[pointController::class,'getData1']);
+
+        Route::post('point/add',[pointController::class,'add']);
+
+        Route::put('point/update',[pointController::class,'update']);
+
+        Route::delete('point/delete/{id}',[pointController::class,'delete']);
+
+    
+    });
+    
     
     Route::post('logout',[userController::class,'logout']);
 
-    Route::put('student/update',[studentController::class,'update']);
-
-    Route::put('student/activate/{id}',[studentController::class,'activate']);
-
-    //Route::put('student/deactivate/{id}',[studentController::class,'deactivate']);
-
-    Route::put('student/staff/update',[studentController::class,'staffUpdate']);
-
-    Route::post('student/certificate',[studentController::class,'studentCertificates']);
-
-    Route::post('student/certificate/pending',[studentController::class,'sapprovalPending']);
-
-    Route::post('student/certificate/rejected',[studentController::class,'sRejected']);
-
+    
     
 
-    Route::put('student/unblockstudent/{id}',[studentController::class,'unblockStudent']);
-
-    Route::get('student/staff/{id}',[studentController::class,'studentFaculty']);
+    
 
 
     //Activity
@@ -96,48 +164,15 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 
     //staff API
-    Route::get('staff/read',[staffController::class,'getData']);
-
-    Route::get('staff/read/{id?}',[staffController::class,'getData1']);
-
-    Route::post('staff/read/name',[staffController::class,'staffName']);
-
-    Route::post('staff/add',[staffController::class,'add']);
-
-    Route::put('staff/update',[staffController::class,'update']);
-
-    Route::put('staff/code',[staffController::class,'codeGenerator']);
-
-    Route::put('staff/deactivate/{id}',[staffController::class,'deactivate']);
-
-    Route::put('staff/activate/{id}',[staffController::class,'activate']);
-
-    Route::get('staff/unapproved/{id}',[staffController::class,'approvalPending']);
-
-    Route::post('staff/confirmed',[staffController::class,'confirmed']);
-
-    Route::put('staff/blockstaff/{id}',[staffController::class,'blockStaff']);
-
-    Route::put('staff/unblockstaff/{id}',[staffController::class,'unblockStaff']);
+    
 
     //level API
     Route::post('level/read',[levelController::class,'getData1']);
 
     Route::get('level/read_all',[levelController::class,'getData']);
 
-    Route::post('level/add',[levelController::class,'add']);
 
-    Route::put('level/update',[levelController::class,'update']);
-
-    Route::delete('level/delete/{id}',[levelController::class,'delete']);
-
-    //department API
-
-    Route::post('department/add',[departmentController::class,'add']);
-
-    Route::put('department/update',[departmentController::class,'update']);
-
-    Route::delete('department/delete/{id}',[departmentController::class,'delete']);
+    //Route::delete('department/delete/{id}',[departmentController::class,'delete']);
 
     //category API
     Route::get('category/read',[categorieController::class,'getData']);
@@ -146,41 +181,14 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('category/activity/{id}',[categorieController::class,'activityList']);
 
-    Route::put('category/update',[categorieController::class,'update']);
-
-    Route::delete('category/delete/{id}',[categorieController::class,'delete']);
-
-
-    //certificate API
-    Route::get('certificate/read',[certificateController::class,'getData']);
-
-    Route::get('certificate/read/{id}',[certificateController::class,'getData1']);
+    //Route::delete('category/delete/{id}',[categorieController::class,'delete']);
+    
 
     //Route::post('certificate/add',[certificateController::class,'calculate']);
 
-    Route::put('certificate/update',[certificateController::class,'update']);
+    // Route::put('certificate/update',[certificateController::class,'update']);
 
-    Route::delete('certificate/delete/{id}',[certificateController::class,'delete']);
-
-    Route::put('certificate/reject',[certificateController::class,'reject']);
-
-
-    Route::put('certificate/approve',[certificateController::class,'approve']);
-
-    Route::post('certificate/add',[certificateController::class,'add']);
-
-
-    //points API
-    Route::get('point/read',[pointController::class,'getData']);
-
-    Route::get('point/read/{id}',[pointController::class,'getData1']);
-
-    Route::post('point/add',[pointController::class,'add']);
-
-    Route::put('point/update',[pointController::class,'update']);
-
-    Route::delete('point/delete/{id}',[pointController::class,'delete']);
-
+    // Route::delete('certificate/delete/{id}',[certificateController::class,'delete']);
 
     });
 

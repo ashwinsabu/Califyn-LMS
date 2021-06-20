@@ -52,7 +52,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\CheckStaff::class,
         ],
         'protectedadmin' => [
-            \App\Http\Middleware\CheckAdmin::class,
+            \App\Http\Middleware\checkAdmin::class,
         ],
     ];
 

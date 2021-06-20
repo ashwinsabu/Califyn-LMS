@@ -18,6 +18,20 @@ class categorieController extends Controller
         return(response()->json(array( "data" => $result)));
     }
 
+    function add(Request $req){
+        $depart=new categorie;
+        $depart->categories=$req->categories;
+        $depart->code=$req->code;
+        $result=$depart->save();
+        if($result){
+            return["Message"=>"Success"];
+        }
+        else{
+            return response()->json([
+                'message' => 'failed'], 400);
+        }
+    }
+
     function update(Request $req){
         $depart=categorie::find($req->id);
         $depart->categories=$req->categories;
