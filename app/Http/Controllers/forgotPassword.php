@@ -12,6 +12,7 @@ use DB;
 class forgotPassword extends Controller
 {
     function generateOtp1(Request $req){
+        try{
         $otp=rand(10000,99999);
         $result=DB::table('users')
               ->where('email', $req->email)
@@ -26,7 +27,12 @@ class forgotPassword extends Controller
                 'message' => 'failed'], 400);
         }
         
+    }catch(\Exception $exception){
+       return response()->json([
+                'message' => 'failed'], 400);
     }
+}
+    
 
     function validataOtp(Request $req){
         $result= User::where('email',$req->email)->where('otp',$req->otp)->get();

@@ -125,7 +125,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
         Route::put('category/update',[categorieController::class,'update']);
 
-        Route::put('category/add',[categorieController::class,'add']);
+        Route::post('category/add',[categorieController::class,'add']);
 
         Route::get('certificate/read',[certificateController::class,'getData']);
 

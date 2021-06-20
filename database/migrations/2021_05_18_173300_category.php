@@ -16,7 +16,7 @@ class Category extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('categories');
-            $table->string('code');
+            $table->string('code')->unique();
         });
 
         DB::table('categories')->insert(

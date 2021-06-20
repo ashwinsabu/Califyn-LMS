@@ -61,7 +61,7 @@ class staffController extends Controller
         $staff->status=1;
         $staff->section=$req->section;
         $user->email=$req->email;
-        $staff->role='Staff';
+        $staff->role='staff';
         $result=$staff->save();
         $result1=$user->save();
         if($result && $result1){
@@ -95,7 +95,7 @@ class staffController extends Controller
         $staff->status=1;
         $staff->section='nill';
         $user->email=$req->email;
-        $staff->role='Staff';
+        $staff->role='admin';
         $result=$staff->save();
         $result1=$user->save();
         if($result && $result1){
