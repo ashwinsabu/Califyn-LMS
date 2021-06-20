@@ -95,6 +95,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 
     Route::group(['middleware' =>['protectedadmin']],function(){
+        
         Route::put('student/blockstudent/{id}',[studentController::class,'blockStudent']);
 
         Route::put('student/unblockstudent/{id}',[studentController::class,'unblockStudent']);

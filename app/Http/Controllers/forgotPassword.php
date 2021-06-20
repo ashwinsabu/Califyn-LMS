@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\student;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OtpSender;
 use Illuminate\Support\Facades\Hash;
@@ -51,13 +52,17 @@ class forgotPassword extends Controller
 
     function updatePassword(Request $req){
         $id= User::where('email',$req->email)->where('otp',$req->otp)->value('id');
+        $id1= student::where('email',$req->email)->value('id');
         if($id == null){
             return response()->json([
                 'message' => 'Incorrect Details Entered'], 400);
         }
         $user=User::find($id);
-        $user->password=Hash::make($req->password);
-        if($user->save()){
+        $student=student::find($id1);
+        $password=Hash::make($req->password);
+        $user->password=$password;
+        $student->password=$password;
+        if($user->save() && $student->save()){
             return["Message"=>"Success"];
         }
         else{
