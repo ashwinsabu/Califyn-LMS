@@ -144,6 +144,11 @@ Route::group(['middleware' => 'auth:api'], function(){
 
         Route::delete('point/delete/{id}',[pointController::class,'delete']);
 
+            //Activity
+        Route::get('activity/read',[activityController::class,'getData']);
+
+        Route::post('activity/add',[activityController::class,'add']);
+
     
     });
     
@@ -156,11 +161,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     
 
 
-    //Activity
-    Route::post('activity/read',[activityController::class,'getData']);
 
-
-    Route::post('activity/add',[activityController::class,'add']);
 
 
 
