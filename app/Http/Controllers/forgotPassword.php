@@ -59,7 +59,7 @@ class forgotPassword extends Controller
         }
         $user=User::find($id);
         $student=student::find($id1);
-        $password=Hash::make($req->password);
+        $password=$req->password; 
         $user->password=$password;
         $student->password=$password;
         if($user->save() && $student->save()){

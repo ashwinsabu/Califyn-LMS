@@ -3,60 +3,38 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\level;
 use DB;
-use App\categorie;
 use App\activity;
 
 class levelController extends Controller
 {
-    function getData1(Request $req){
+    function getData1($id){
         //change
         try{
-        $result= categorie::find($req->category_id);
-        $result1= activity::find($req->activity_id);
-        if($result->code=='lm'){
-            $result = DB::table('levels')
-                    ->select('id','levels','category_id')
-                    ->where('category_id',$result->id)->get();
-        }
-        elseif($result->code=='ei'){
-            $result = DB::table('levels')
-                    ->select('id','levels','category_id')
-                    ->where('category_id',$result->id)->get();
-        }
-        elseif($result->code=='psi'){
-            if($result1->id==22 || $result1->id == 24){
-                $result = DB::table('levels')
-                    ->select('id','levels','category_id')
-                    ->where('category_id',1)->get();
-            }
-            else{
-                $result = DB::table('levels')
-                    ->select('id','levels','category_id')
-                    ->where('category_id',2)->get();
-            }
+        $result= level::where('activity_id',$id)->get();
+        if($result){
+            return(response()->json(array( "data" => $result)));
         }
         else{
-            $result = DB::table('levels')
-                ->select('id','levels','category_id')
-                ->where('category_id',1)->get();
+            return response()->json([
+                'message' => 'No level'], 400);
         }
-        return(response()->json(array( "data" => $result)));
     }
+
     catch(\Exception $exception){
        return response()->json([
                 'message' => 'failed'], 400);
     }
     }
 
-    function getData(){
-        $result= level::all();
-        return(response()->json(array( "data" => $result)));
-    }
+    // function getData(){
+    //     $result= level::all();
+    //     return(response()->json(array( "data" => $result)));
+    // }
     function add(Request $req){
 
         $level=new level;
         $level->levels=$req->levels;
-        $level->category_id=$req->category_id;
+        $level->category_id=$req->activity_id;
         $result=$level->save();
         if($result){
             return["Message"=>"Success"];

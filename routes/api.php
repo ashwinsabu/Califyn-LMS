@@ -161,11 +161,11 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('student/read/{id?}',[studentController::class,'getData1']);
 
     //level API
-    Route::post('level/read',[levelController::class,'getData1']);
+    
 
     Route::get('level/read_all',[levelController::class,'getData']);
 
-
+    Route::get('level/read/{id}',[levelController::class,'getData1']);
     //Route::delete('department/delete/{id}',[departmentController::class,'delete']);
 
     //category API
@@ -186,7 +186,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     });
 
-
+    
 
 
 
