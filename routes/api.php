@@ -150,7 +150,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('student/read',[studentController::class,'getData']);
 
-    Route::get('staff/read',[staffController::class,'getData1']);
+    Route::get('staff/read',[staffController::class,'getData']);
 
     Route::get('staff/read/{id?}',[staffController::class,'getData1']);
 
