@@ -58,6 +58,7 @@ use App\Http\Controllers\pointController;
 Route::group(['middleware' => 'auth:api'], function(){
 
     Route::group(['middleware' =>['protectedstudents']],function(){
+
         Route::put('student/update',[studentController::class,'update']);
 
         Route::put('student/staff/update',[studentController::class,'staffUpdate']);
@@ -148,6 +149,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('logout',[userController::class,'logout']);
 
     Route::get('student/read',[studentController::class,'getData']);
+
+    Route::get('staff/read',[staffController::class,'getData1']);
 
     Route::get('staff/read/{id?}',[staffController::class,'getData1']);
 
