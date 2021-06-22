@@ -50,7 +50,7 @@ class staffController extends Controller
             return response()->json($val1->errors(),422);
         }
         $staff->name=$req->name;
-        $password=$req->password;
+        $password=$req->email;
         $staff->password = Hash::make($password);
         $user->password = Hash::make($password);
         $staff->department_id=$req->department_id;
