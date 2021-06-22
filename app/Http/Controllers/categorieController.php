@@ -58,7 +58,7 @@ class categorieController extends Controller
         }
         else{
             return response()->json([
-                'message' => 'failed'], 400);
+                'message' => 'Cannot delete as it is in use'], 400);
         }}
     }
 

@@ -101,6 +101,8 @@ Route::group(['middleware' => 'auth:api'], function(){
 
         Route::put('student/unblockstudent/{id}',[studentController::class,'unblockStudent']);
 
+        Route::delete('category/delete/{id}',[categorieController::class,'delete']);
+
         Route::post('staff/add',[staffController::class,'add']);
 
         Route::put('staff/blockstaff/{id}',[staffController::class,'blockStaff']);
@@ -173,7 +175,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('category/activity/{id}',[categorieController::class,'activityList']);
 
-    //Route::delete('category/delete/{id}',[categorieController::class,'delete']);
+    
     
 
     //Route::post('certificate/add',[certificateController::class,'calculate']);
