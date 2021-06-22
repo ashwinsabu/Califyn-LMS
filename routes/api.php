@@ -100,10 +100,6 @@ Route::group(['middleware' => 'auth:api'], function(){
 
         Route::put('student/unblockstudent/{id}',[studentController::class,'unblockStudent']);
 
-        Route::get('student/read',[studentController::class,'getData']);
-
-        Route::get('staff/read/{id?}',[staffController::class,'getData1']);
-
         Route::post('staff/add',[staffController::class,'add']);
 
         Route::put('staff/blockstaff/{id}',[staffController::class,'blockStaff']);
@@ -153,11 +149,11 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('student/read',[studentController::class,'getData']);
 
-    Route::get('student/read/{id?}',[studentController::class,'getData1']);
+    Route::get('staff/read/{id?}',[staffController::class,'getData1']);
+
+    Route::get('student/read',[studentController::class,'getData']);
 
     Route::get('student/read/{id?}',[studentController::class,'getData1']);
-
-        Route::get('staff/read',[staffController::class,'getData']);
 
     //level API
     Route::post('level/read',[levelController::class,'getData1']);
