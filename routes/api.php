@@ -155,18 +155,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     
     Route::post('logout',[userController::class,'logout']);
 
-    
-    
+    Route::get('student/read',[studentController::class,'getData']);
 
-    
-
-
-
-
-
-
-    //staff API
-    
+    Route::get('student/read/{id?}',[studentController::class,'getData1']);
 
     //level API
     Route::post('level/read',[levelController::class,'getData1']);
