@@ -49,7 +49,8 @@ class categorieController extends Controller
     function delete($id){
         $depart=categorie::find($id);
         if($depart==null){
-            return["message"=>"No row found"];
+            return response()->json([
+                'message' => 'No row found'], 400);
         }
         else{
         $result=$depart->delete();
