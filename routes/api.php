@@ -49,7 +49,7 @@ use App\Http\Controllers\pointController;
 
         Route::post('otp/validate',[forgotPassword::class,'validataOtp']);
 
-        Route::post('password/update',[forgotPassword::class,'updatePassword']);
+        Route::put('password/update',[forgotPassword::class,'updatePassword']);
 
         Route::post('staff/add/admin',[staffController::class,'addAdmin']);
 
@@ -133,6 +133,8 @@ Route::group(['middleware' => 'auth:api'], function(){
 
         Route::get('point/read/{id}',[pointController::class,'getData1']);
 
+        Route::post('point/get',[pointController::class,'getData2']);
+
         Route::post('point/add',[pointController::class,'add']);
 
         Route::put('point/update',[pointController::class,'update']);
@@ -173,7 +175,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('category/read/{id}',[categorieController::class,'getData1']);
 
-    Route::get('category/activity/{id}',[categorieController::class,'activityList']);
+    Route::get('category/activity/{id}',[activityController::class,'activityList']);
 
     
     

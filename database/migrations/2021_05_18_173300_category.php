@@ -16,43 +16,43 @@ class Category extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('categories');
-            $table->string('code')->unique();
+            $table->integer('status');
         });
 
         DB::table('categories')->insert(
             array(
                 'categories' => 'Cultural Acitivities Participation',
-                'code' => 'cat'
+                'status' => 1
             )
         );
         DB::table('categories')->insert(
             array(
                 'categories' => 'Entrepreneurship Innovation',
-                'code' => 'ei'
+                'status' => 1
             )
         );
         DB::table('categories')->insert(
             array(
                 'categories' => 'Leadership Management',
-                'code' => 'lm'
+                'status' => 1
             )
         );
         DB::table('categories')->insert(
             array(
                 'categories' => 'National Initiative',
-                'code' => 'ni'
+                'status' => 1
             )
         );
         DB::table('categories')->insert(
             array(
                 'categories' => 'Professional Self Initiative',
-                'code' => 'psi'
+                'status' => 1
             )
         );
         DB::table('categories')->insert(
             array(
                 'categories' => 'Sports Game',
-                'code' => 'sg'
+                'status' => 1
             )
         );
     }

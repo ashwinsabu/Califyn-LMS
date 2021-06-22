@@ -8,5 +8,5 @@ class categorie extends Model
 {
     public $table='categories';
     public $timestamps=false;
-    protected $fillable = ['categories','code'];
+    protected $fillable = ['categories','status'];
 }

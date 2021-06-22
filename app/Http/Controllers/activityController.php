@@ -35,4 +35,14 @@ class activityController extends Controller
             return response()->json(["message"=>"Could not process the request"],400);
         }
     }
+
+    function activityList($id){
+        $act=activity::where('category_id',$id)->get();
+        if($act){
+            return(response()->json(array( "data" => $act)));
+    }
+    else{
+        return response()->json(["message"=>"Request failed as wrong input"],400);
+    }
+    }
 }

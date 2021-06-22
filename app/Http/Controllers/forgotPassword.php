@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\student;
+use App\staff;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OtpSender;
 use Illuminate\Support\Facades\Hash;
@@ -51,18 +52,24 @@ class forgotPassword extends Controller
     
 
     function updatePassword(Request $req){
-        $id= User::where('email',$req->email)->where('otp',$req->otp)->value('id');
-        $id1= student::where('email',$req->email)->value('id');
-        if($id == null){
+        //$user = DB::table('users')->where('email',$req->email)->where('otp',$req->otp)->first();
+        $user = User::where('email',$req->email)->where('otp',$req->otp)->first();
+        $pos = User::where('email',$req->email)->where('otp',$req->otp)->value('position');
+        if($user == null){
             return response()->json([
                 'message' => 'Incorrect Details Entered'], 400);
         }
-        $user=User::find($id);
-        $student=student::find($id1);
-        $password=$req->password; 
+        if($pos == 2){
+            $role = student::where('email',$req->email)->first();
+        }
+        else{
+            $role = staff::where('email',$req->email)->first();
+        }
+        
+        $password=Hash::make($req->password);
         $user->password=$password;
-        $student->password=$password;
-        if($user->save() && $student->save()){
+        $role->password=$password;
+        if($user->save() && $role->save()){
             return["Message"=>"Success"];
         }
         else{

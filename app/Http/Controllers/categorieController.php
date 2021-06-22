@@ -21,7 +21,7 @@ class categorieController extends Controller
     function add(Request $req){
         $depart=new categorie;
         $depart->categories=$req->categories;
-        $depart->code=$req->code;
+        $depart->status=$req->status;
         $result=$depart->save();
         if($result){
             return["Message"=>"Success"];
@@ -35,7 +35,7 @@ class categorieController extends Controller
     function update(Request $req){
         $depart=categorie::find($req->id);
         $depart->categories=$req->categories;
-        $depart->code=$req->code;
+        $depart->status=$req->status;
         $result=$depart->save();
         if($result){
             return["Message"=>"Success"];
@@ -47,6 +47,7 @@ class categorieController extends Controller
     }
 
     function delete($id){
+        try{
         $depart=categorie::find($id);
         if($depart==null){
             return response()->json([
@@ -62,45 +63,14 @@ class categorieController extends Controller
                 'message' => 'Cannot delete as it is in use'], 400);
         }}
     }
+    catch(\Exception $exception){
+        $depart->status=0;
+        $depart->save();
+        return response()->json([
+            'message' => 'Cannot remove as in use. DEACTIVATED !!!!'], 400);
+    }
 
-    function activityList($id){
-        $act=categorie::find($id);
-        if($act){
-        switch($act->code){
-            case 'cat':
-                $result = DB::table('cultural_acitivities_participations')
-                ->select('id','activity')->get();
-                return(response()->json(array( "data" => $result)));
-                break;
-            case 'ei':
-                $result = DB::table('entrepreneurship_innovations')
-                ->select('id','activity')->get();
-                return(response()->json(array( "data" => $result)));
-                break;
-            case 'lm':
-                $result = DB::table('leadership_managements')
-                ->select('id','activity')->get();
-                return(response()->json(array( "data" => $result)));
-                break;
-            case 'ni':
-                $result = DB::table('national_initiatives')
-                ->select('id','activity')->get();
-                return(response()->json(array( "data" => $result)));
-                break;
-            case 'psi':
-                $result = DB::table('professional_self_initiatives')
-                ->select('id','activity')->get();
-                return(response()->json(array( "data" => $result)));
-                break;
-            case 'sg':
-                $result = DB::table('sports_games')
-                ->select('id','activity')->get();
-                return(response()->json(array( "data" => $result)));
-                break;
-        }
-    }
-    else{
-        return['message'=>'Wrong choice'];
-    }
-    }
+}
+
+    
 }

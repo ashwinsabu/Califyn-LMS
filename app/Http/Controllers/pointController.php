@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\point;
+use DB;
 
 class pointController extends Controller
 {
@@ -16,6 +17,25 @@ class pointController extends Controller
         $result= point::find($id);
         return(response()->json(array( "data" => $result)));
     }
+
+    function getData2(Request $req){
+        try{
+            $result = DB::table('points')->where('activity_id', $req->activity_id)->where('category_id', $req->category_id)->where('level_id', $req->level_id)->first();
+            if($result){
+                return(response()->json(array( "data" => $result)));
+            }
+            else{
+                return response()->json([
+                    'message' => 'Does not exist'], 400);
+            }
+            
+        }
+        catch(\Exception $exception){
+            return response()->json([
+                     'message' => 'failed'], 400);
+         }
+    }
+
     function add(Request $req){
         $points=new point;
         $points->activity_id=$req->activity_id;

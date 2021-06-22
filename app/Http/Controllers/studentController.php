@@ -35,7 +35,7 @@ class studentController extends Controller
         }
     }
     function add(Request $req){
-        try{
+        
         $student=new student;
         $user=new User;
 
@@ -65,7 +65,7 @@ class studentController extends Controller
         $student->semester=$req->semester;
         $student->status=1;
         $student->section=$req->section;
-        $student->points=$req->points;
+        $student->points=0;
         
         if($student->save() && $user->save()){
             $success['token'] =  $user->createToken('MyApp')-> accessToken; 
@@ -74,11 +74,7 @@ class studentController extends Controller
         else{
             return response()->json(false,400);
         }
-        }
-        catch(\Exception $exception){
-            return response()->json([
-                'message' => 'failed'], 400);
-        }
+        
     }
 
     function update(Request $req){
