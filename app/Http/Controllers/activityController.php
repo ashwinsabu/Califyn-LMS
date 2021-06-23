@@ -9,12 +9,27 @@ use Validator;
 
 class activityController extends Controller
 {
-    function getData(Request $req){
+    function activityList($id){
 
-        $result = DB::table('activitys')
-                                ->select('id','activity','category_id')
-                                ->where('category_id',$req->category_id)->get();
-        return(response()->json(array( "data" => $result)));
+        $act=activity::where('category_id',$id)->where('status',1)->get();
+        if($act){
+            return(response()->json(array( "data" => $act)));
+    }
+    else{
+        return response()->json(["message"=>"Request failed as wrong input"],400);
+    }
+
+    }
+
+    function getDataAll(Request $req){
+
+        $act=activity::where('category_id',$id)->get();
+        if($act){
+            return(response()->json(array( "data" => $act)));
+    }
+    else{
+        return response()->json(["message"=>"Request failed as wrong input"],400);
+    }
 
     }
 
@@ -28,6 +43,7 @@ class activityController extends Controller
 
         $activity->activity=$req->activity;
         $activity->category_id=$req->category_id;
+        $activity->status=1;
         if($activity->save()){
             return["message"=>"Success"];
         }
@@ -36,13 +52,28 @@ class activityController extends Controller
         }
     }
 
-    function activityList($id){
-        $act=activity::where('category_id',$id)->get();
-        if($act){
-            return(response()->json(array( "data" => $act)));
+    function update(Request $req){
+        $activity=activity::find($req->id);
+        $activity->activity=$req->activity;
+        $activity->category_id=$req->category_id;
+        $activity->status=$req->status;
+        $result=$activity->save();
+        if($result){
+            return["Message"=>"Success"];
+        }
+        else{
+            return response()->json([
+                'message' => 'failed'], 400);
+        }
     }
-    else{
-        return response()->json(["message"=>"Request failed as wrong input"],400);
-    }
-    }
+
+    // function activityList($id){
+    //     $act=activity::where('category_id',$id)->get();
+    //     if($act){
+    //         return(response()->json(array( "data" => $act)));
+    // }
+    // else{
+    //     return response()->json(["message"=>"Request failed as wrong input"],400);
+    // }
+    // }
 }

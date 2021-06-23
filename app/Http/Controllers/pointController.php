@@ -20,9 +20,11 @@ class pointController extends Controller
 
     function getData2(Request $req){
         try{
-            $result = DB::table('points')->where('activity_id', $req->activity_id)->where('category_id', $req->category_id)->where('level_id', $req->level_id)->first();
+            $result = point::where('activity_id', $req->activity_id)
+                            ->where('category_id', $req->category_id)
+                            ->where('level_id', $req->level_id)->first();
             if($result){
-                return(response()->json(array( "data" => $result)));
+                return(response()->json(array($result)));
             }
             else{
                 return response()->json([
@@ -37,6 +39,11 @@ class pointController extends Controller
     }
 
     function add(Request $req){
+        $result = DB::table('points')->where('activity_id', $req->activity_id)->where('category_id', $req->category_id)->where('level_id', $req->level_id)->first();
+        if($result){
+            return response()->json([
+                'message' => 'Already added.'], 400);
+        }
         $points=new point;
         $points->activity_id=$req->activity_id;
         $points->level_id=$req->level_id;

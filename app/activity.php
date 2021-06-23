@@ -8,7 +8,7 @@ class activity extends Model
 {
     public $table='activitys';
     public $timestamps=false;
-    protected $fillable = ['activity','category_id'];
+    protected $fillable = ['activity','category_id','status'];
 
     public $createRules = array(
         'activity' => 'required',

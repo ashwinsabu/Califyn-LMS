@@ -103,6 +103,8 @@ Route::group(['middleware' => 'auth:api'], function(){
 
         Route::delete('category/delete/{id}',[categorieController::class,'delete']);
 
+        Route::post('point/get',[pointController::class,'getData2']);
+
         Route::post('staff/add',[staffController::class,'add']);
 
         Route::put('staff/blockstaff/{id}',[staffController::class,'blockStaff']);
@@ -133,7 +135,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
         Route::get('point/read/{id}',[pointController::class,'getData1']);
 
-        Route::post('point/get',[pointController::class,'getData2']);
+        
 
         Route::post('point/add',[pointController::class,'add']);
 
@@ -146,7 +148,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
         Route::post('activity/add',[activityController::class,'add']);
 
-    
+        Route::put('activity/update',[activityController::class,'update']);
     });
     
     
@@ -165,17 +167,21 @@ Route::group(['middleware' => 'auth:api'], function(){
     //level API
     
 
-    Route::get('level/read_all',[levelController::class,'getData']);
+    Route::get('level/read_all/{id}',[levelController::class,'getData']);
 
-    Route::get('level/read/{id}',[levelController::class,'getData1']);
+    Route::get('level/read/{id}',[levelController::class,'getDataAll']);
     //Route::delete('department/delete/{id}',[departmentController::class,'delete']);
 
     //category API
     Route::get('category/read',[categorieController::class,'getData']);
 
+    Route::get('category/read_all',[categorieController::class,'getData2']);
+
     Route::get('category/read/{id}',[categorieController::class,'getData1']);
 
-    Route::get('category/activity/{id}',[activityController::class,'activityList']);
+    Route::get('activity/{id}',[activityController::class,'activityList']);
+
+    Route::get('activity_all/{id}',[activityController::class,'getDataAll']);
 
     
     
@@ -190,7 +196,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     
 
-
+    
 
 Route::fallback(function(){
     return response()->json([

@@ -18,6 +18,11 @@ class categorieController extends Controller
         return(response()->json(array( "data" => $result)));
     }
 
+    function getData2(){
+        $result =categorie::all();
+        return(response()->json(array( "data" => $result)));
+    }
+
     function add(Request $req){
         $depart=new categorie;
         $depart->categories=$req->categories;

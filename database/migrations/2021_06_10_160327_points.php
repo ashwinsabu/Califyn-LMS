@@ -17,7 +17,7 @@ class Points extends Migration
             $table->id();
             $table->bigInteger('activity_id')->unsigned();
             $table->integer('points');
-            $table->bigInteger('level_id')->unsigned();
+            $table->bigInteger('level_id')->nullable()->unsigned();
             $table->bigInteger('category_id')->unsigned();
             $table->integer('max_points');
             $table->integer('duration');

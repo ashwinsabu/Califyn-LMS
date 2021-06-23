@@ -17,6 +17,7 @@ class Level extends Migration
             $table->id();
             $table->string('levels');
             $table->bigInteger('activity_id')->unsigned();
+            $table->integer('status');
             $table->foreign('activity_id')->references('id')->on('activitys');
         });
 
@@ -24,62 +25,72 @@ class Level extends Migration
         DB::table('levels')->insert(
             array(
                 'levels' => 'College Events',
-                'activity_id' => 1
+                'activity_id' => 1,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'Zonal Events',
-                'activity_id' => 1
+                'activity_id' => 1,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'State/ University Events',
-                'activity_id' => 1
+                'activity_id' => 1,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'National Events',
-                'activity_id' => 1
+                'activity_id' => 1,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'International Events',
-                'activity_id' => 1
+                'activity_id' => 1,
+                'status' => 1
             )
         );
          //2
          DB::table('levels')->insert(
             array(
                 'levels' => 'College Events',
-                'activity_id' => 2
+                'activity_id' => 2,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'Zonal Events',
-                'activity_id' => 2
+                'activity_id' => 2,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'State/ University Events',
-                'activity_id' => 2
+                'activity_id' => 2,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'National Events',
-                'activity_id' => 2
+                'activity_id' => 2,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'International Events',
-                'activity_id' => 2
+                'activity_id' => 2,
+                'status' => 1
             )
         );
 
@@ -87,61 +98,71 @@ class Level extends Migration
         DB::table('levels')->insert(
             array(
                 'levels' => 'College Events',
-                'activity_id' => 3
+                'activity_id' => 3,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'Zonal Events',
-                'activity_id' => 3
+                'activity_id' => 3,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'State/ University Events',
-                'activity_id' => 3
+                'activity_id' => 3,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'National Events',
-                'activity_id' => 3
+                'activity_id' => 3,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'International Events',
-                'activity_id' => 3
+                'activity_id' => 3,
+                'status' => 1
             )
         );//4
         DB::table('levels')->insert(
            array(
                'levels' => 'College Events',
-               'activity_id' => 4
+               'activity_id' => 4,
+               'status' => 1
            )
        );
        DB::table('levels')->insert(
            array(
                'levels' => 'Zonal Events',
-               'activity_id' => 4
+               'activity_id' => 4,
+               'status' => 1
            )
        );
        DB::table('levels')->insert(
            array(
                'levels' => 'State/ University Events',
-               'activity_id' => 4
+               'activity_id' => 4,
+               'status' => 1
            )
        );
        DB::table('levels')->insert(
            array(
                'levels' => 'National Events',
-               'activity_id' => 4
+               'activity_id' => 4,
+               'status' => 1
            )
        );
        DB::table('levels')->insert(
            array(
                'levels' => 'International Events',
-               'activity_id' => 4
+               'activity_id' => 4,
+               'status' => 1
            )
        );
 
@@ -149,62 +170,72 @@ class Level extends Migration
         DB::table('levels')->insert(
         array(
             'levels' => 'College Events',
-            'activity_id' => 5
+            'activity_id' => 5,
+            'status' => 1
         )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'Zonal Events',
-                'activity_id' => 5
+                'activity_id' => 5,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'State/ University Events',
-                'activity_id' => 5
+                'activity_id' => 5,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'National Events',
-                'activity_id' => 5
+                'activity_id' => 5,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'International Events',
-                'activity_id' => 5
+                'activity_id' => 5,
+                'status' => 1
             )
         );
          //6
          DB::table('levels')->insert(
             array(
                 'levels' => 'College Events',
-                'activity_id' => 6
+                'activity_id' => 6,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'Zonal Events',
-                'activity_id' => 6
+                'activity_id' => 6,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'State/ University Events',
-                'activity_id' => 6
+                'activity_id' => 6,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'National Events',
-                'activity_id' => 6
+                'activity_id' => 6,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'International Events',
-                'activity_id' => 6
+                'activity_id' => 6,
+                'status' => 1
             )
         );
 
@@ -212,81 +243,94 @@ class Level extends Migration
         DB::table('levels')->insert(
             array(
                 'levels' => 'College Events',
-                'activity_id' => 7
+                'activity_id' => 7,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'Zonal Events',
-                'activity_id' => 7
+                'activity_id' => 7,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'State/ University Events',
-                'activity_id' => 7
+                'activity_id' => 7,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'National Events',
-                'activity_id' => 7
+                'activity_id' => 7,
+                'status' => 1
             )
         );
         DB::table('levels')->insert(
             array(
                 'levels' => 'International Events',
-                'activity_id' => 7
+                'activity_id' => 7,
+                'status' => 1
             )
         );
         //8
         DB::table('levels')->insert(
            array(
                'levels' => 'College Events',
-               'activity_id' => 8
+               'activity_id' => 8,
+               'status' => 1
            )
        );
        DB::table('levels')->insert(
            array(
                'levels' => 'Zonal Events',
-               'activity_id' => 8
+               'activity_id' => 8,
+               'status' => 1
            )
        );
        DB::table('levels')->insert(
            array(
                'levels' => 'State/ University Events',
-               'activity_id' => 8
+               'activity_id' => 8,
+               'status' => 1
            )
        );
        DB::table('levels')->insert(
            array(
                'levels' => 'National Events',
-               'activity_id' => 8
+               'activity_id' => 8,
+               'status' => 1
            )
        );
        DB::table('levels')->insert(
            array(
                'levels' => 'International Events',
-               'activity_id' => 8
+               'activity_id' => 8,
+               'status' => 1
            )
        );
        //9
        DB::table('levels')->insert(
         array(
             'levels' => 'Chairman',
-            'activity_id' => 9
+            'activity_id' => 9,
+            'status' => 1
         )
        );
        DB::table('levels')->insert(
         array(
             'levels' => 'Secretary',
-            'activity_id' => 9
+            'activity_id' => 9,
+            'status' => 1
         )
        );
        DB::table('levels')->insert(
         array(
             'levels' => 'Other Counsil Members',
-            'activity_id' => 9
+            'activity_id' => 9,
+            'status' => 1
         )
        );
 
@@ -294,19 +338,22 @@ class Level extends Migration
        DB::table('levels')->insert(
         array(
             'levels' => 'Core coorindator',
-            'activity_id' => 10
+            'activity_id' => 10,
+            'status' => 1
         )
        );
        DB::table('levels')->insert(
         array(
             'levels' => 'Sub Coordinator',
-            'activity_id' => 10
+            'activity_id' => 10,
+            'status' => 1
         )
        );
        DB::table('levels')->insert(
         array(
             'levels' => 'Volunteer',
-            'activity_id' => 10
+            'activity_id' => 10,
+            'status' => 1
         )
        );
 
@@ -314,31 +361,36 @@ class Level extends Migration
        DB::table('levels')->insert(
         array(
             'levels' => 'College Events',
-            'activity_id' => 22
+            'activity_id' => 22,
+            'status' => 1
         )
     );
     DB::table('levels')->insert(
         array(
             'levels' => 'Zonal Events',
-            'activity_id' => 22
+            'activity_id' => 22,
+            'status' => 1
         )
     );
     DB::table('levels')->insert(
         array(
             'levels' => 'State/ University Events',
-            'activity_id' => 22
+            'activity_id' => 22,
+            'status' => 1
         )
     );
     DB::table('levels')->insert(
         array(
             'levels' => 'National Events',
-            'activity_id' => 22
+            'activity_id' => 22,
+            'status' => 1
         )
     );
     DB::table('levels')->insert(
         array(
             'levels' => 'International Events',
-            'activity_id' => 22
+            'activity_id' => 22,
+            'status' => 1
         )
     );
 
@@ -346,31 +398,36 @@ class Level extends Migration
     DB::table('levels')->insert(
         array(
             'levels' => 'College Events',
-            'activity_id' => 24
+            'activity_id' => 24,
+            'status' => 1
         )
     );
     DB::table('levels')->insert(
         array(
             'levels' => 'Zonal Events',
-            'activity_id' => 24
+            'activity_id' => 24,
+            'status' => 1
         )
     );
     DB::table('levels')->insert(
         array(
             'levels' => 'State/ University Events',
-            'activity_id' => 24
+            'activity_id' => 24,
+            'status' => 1
         )
     );
     DB::table('levels')->insert(
         array(
             'levels' => 'National Events',
-            'activity_id' => 24
+            'activity_id' => 24,
+            'status' => 1
         )
     );
     DB::table('levels')->insert(
         array(
             'levels' => 'International Events',
-            'activity_id' => 24
+            'activity_id' => 24,
+            'status' => 1
         )
     );
 

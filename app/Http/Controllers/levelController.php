@@ -7,23 +7,38 @@ use App\activity;
 
 class levelController extends Controller
 {
-    function getData1($id){
+    function getDataAll($id){
         //change
         try{
-        $result= level::where('activity_id',$id)->get();
+        $result= level::where('activity_id',$id)->where('status',1)->get();
         if($result){
             return(response()->json(array( "data" => $result)));
         }
         else{
             return response()->json([
                 'message' => 'No level'], 400);
+            }
+        }
+
+        catch(\Exception $exception){
+        return response()->json([
+                    'message' => 'failed'], 400);
         }
     }
 
-    catch(\Exception $exception){
-       return response()->json([
-                'message' => 'failed'], 400);
-    }
+    function getData($id){
+        //change
+        try{
+            $result=level::where('activity_id',$id)->get();
+            if($result){
+                return(response()->json(array( "data" => $result)));
+            }
+        }
+
+        catch(\Exception $exception){
+        return response()->json([
+                    'message' => 'failed'], 400);
+        }
     }
 
     // function getData(){
@@ -35,6 +50,7 @@ class levelController extends Controller
         $level=new level;
         $level->levels=$req->levels;
         $level->activity_id=$req->activity_id;
+        $level->status=1;
         $result=$level->save();
         if($result){
             return["Message"=>"Success"];
