@@ -9,7 +9,7 @@ use DB;
 class categorieController extends Controller
 {
     function getData(){
-        $result =categorie::all();
+        $result =categorie::where('status',1)->get();
         return(response()->json(array( "data" => $result)));
     }
 
@@ -21,7 +21,7 @@ class categorieController extends Controller
     function add(Request $req){
         $depart=new categorie;
         $depart->categories=$req->categories;
-        $depart->status=$req->status;
+        $depart->status=1;
         $result=$depart->save();
         if($result){
             return["Message"=>"Success"];
