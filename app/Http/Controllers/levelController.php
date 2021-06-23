@@ -34,7 +34,7 @@ class levelController extends Controller
 
         $level=new level;
         $level->levels=$req->levels;
-        $level->category_id=$req->activity_id;
+        $level->activity_id=$req->activity_id;
         $result=$level->save();
         if($result){
             return["Message"=>"Success"];
