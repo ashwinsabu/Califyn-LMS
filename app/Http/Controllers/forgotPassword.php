@@ -66,9 +66,9 @@ class forgotPassword extends Controller
             $role = staff::where('email',$req->email)->first();
         }
         
-        //$password=Hash::make($req->password);
-        $user->password=$req->password;
-        $role->password=$req->password;
+        $password=Hash::make($req->password);
+        $user->password=$password;
+        $role->password=$password;
         if($user->save() && $role->save()){
             return["Message"=>"Success"];
         }
