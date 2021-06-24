@@ -124,7 +124,6 @@ class certificateController extends Controller
     function delete($id){
         try{
         $cert=certificate::find($id);
-        if($cert->status==0){
         if($cert==null){
             return response()->json([
                 'message' => 'No data'], 400);
@@ -144,7 +143,6 @@ class certificateController extends Controller
     else{
         return response()->json([
             'message' => 'certificate cannot be deleted as it is not in pending list'], 400);
-    }
     }
     }
     catch(\Exception $exception){

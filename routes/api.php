@@ -51,6 +51,8 @@ use App\Http\Controllers\pointController;
 
         Route::put('password/update',[forgotPassword::class,'updatePassword']);
 
+        Route::put('profile/password/update',[forgotPassword::class,'updatePasswordProfile']);
+
         Route::post('staff/add/admin',[staffController::class,'addAdmin']);
 
         Route::get('user',[userController::class,'getData']);

@@ -52,7 +52,7 @@ class forgotPassword extends Controller
     
 
     function updatePassword(Request $req){
-        //$user = DB::table('users')->where('email',$req->email)->where('otp',$req->otp)->first();
+        
         $user = User::where('email',$req->email)->where('otp',$req->otp)->first();
         $pos = User::where('email',$req->email)->where('otp',$req->otp)->value('position');
         if($user == null){
@@ -75,6 +75,34 @@ class forgotPassword extends Controller
         else{
             return response()->json([
                 'message' => 'failed'], 400);
+        }
+        
+    }
+
+    function updatePasswordProfile(Request $req){
+        $password_old = User::where('email',$req->email)->value('password');
+        if (Hash::check($req->oldpassword, $password_old)) {
+
+            $user = User::where('email',$req->email)->first();
+            $pos = User::where('email',$req->email)->value('position');
+            if($pos == 2){
+                $role = student::where('email',$req->email)->first();
+            }
+            else{
+                $role = staff::where('email',$req->email)->first();
+            }
+            
+            $password=Hash::make($req->newpassword);
+            $user->password=$password;
+            $role->password=$password;
+            if($user->save() && $role->save()){
+                return["Message"=>"Success"];
+            }
+            else{
+                return response()->json([
+                    'message' => 'failed'], 400);
+            }
+                
         }
         
     }
