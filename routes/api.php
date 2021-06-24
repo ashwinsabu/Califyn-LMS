@@ -72,6 +72,8 @@ Route::group(['middleware' => 'auth:api'], function(){
         Route::post('staff/read/name',[staffController::class,'staffName']);
 
         Route::post('certificate/add',[certificateController::class,'add']);
+
+        Route::delete('certificate/delete/{id}',[certificateController::class,'delete']);
     });
 
 
@@ -190,7 +192,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     // Route::put('certificate/update',[certificateController::class,'update']);
 
-    // Route::delete('certificate/delete/{id}',[certificateController::class,'delete']);
+    
 
     });
 

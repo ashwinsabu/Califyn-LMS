@@ -28,7 +28,7 @@ class pointController extends Controller
             }
             else{
                 return response()->json([
-                    'message' => 'Does not exist'], 400);
+                    'message' => 'Does not exist'], 204);
             }
             
         }

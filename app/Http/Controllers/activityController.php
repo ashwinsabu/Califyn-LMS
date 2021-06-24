@@ -21,7 +21,7 @@ class activityController extends Controller
 
     }
 
-    function getDataAll(Request $req){
+    function getDataAll($id){
 
         $act=activity::where('category_id',$id)->get();
         if($act){

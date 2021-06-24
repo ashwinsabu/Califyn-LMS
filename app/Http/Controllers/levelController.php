@@ -64,6 +64,7 @@ class levelController extends Controller
     function update(Request $req){
         $level=level::find($req->id);
         $level->levels=$req->levels;
+        $level->status=$req->status;
         $result=$level->save();
         if($result){
             return["Message"=>"Success"];
