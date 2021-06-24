@@ -51,8 +51,6 @@ use App\Http\Controllers\pointController;
 
         Route::put('password/update',[forgotPassword::class,'updatePassword']);
 
-        Route::put('profile/password/update',[forgotPassword::class,'updatePasswordProfile']);
-
         Route::post('staff/add/admin',[staffController::class,'addAdmin']);
 
         Route::get('user',[userController::class,'getData']);
@@ -186,6 +184,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('activity/{id}',[activityController::class,'activityList']);
 
     Route::get('activity_all/{id}',[activityController::class,'getDataAll']);
+
+    Route::put('profile/password/update',[forgotPassword::class,'updatePasswordProfile']);
 
     
     

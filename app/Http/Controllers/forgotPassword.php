@@ -80,6 +80,7 @@ class forgotPassword extends Controller
     }
 
     function updatePasswordProfile(Request $req){
+        try{
         $password_old = User::where('email',$req->email)->value('password');
         if (Hash::check($req->oldpassword, $password_old)) {
 
@@ -104,6 +105,15 @@ class forgotPassword extends Controller
             }
                 
         }
+        else{
+            return response()->json([
+                'message' => 'Wrong Password'], 400);
+        }
+    }
+    catch(\Exception $exception){
+        return response()->json([
+                 'message' => 'Error'], 400);
+     }
         
     }
 }
