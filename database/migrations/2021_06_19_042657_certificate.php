@@ -37,24 +37,24 @@ class Certificate extends Migration
             $table->foreign('staff_id')->references('id')->on('staffs');
         });
 
-        DB::table('certificates')->insert(
-            array(
-                'name' => 'Ellixtra',
-                'image'=>'aa',
-                'student_id'=>1,
-                'prize'=>1,
-                'organized_by'=>'A',
-                'semester'=>5,
-                'activity_id'=> 1,
-                'level_id'=>1,
-                'category_id'=>1,
-                'status'=>0,
-                'points'=>12,
-                'day'=>12,
-                'staff_id'=>1
+        // DB::table('certificates')->insert(
+        //     array(
+        //         'name' => 'Ellixtra',
+        //         'image'=>'aa',
+        //         'student_id'=>1,
+        //         'prize'=>1,
+        //         'organized_by'=>'A',
+        //         'semester'=>5,
+        //         'activity_id'=> 1,
+        //         'level_id'=>1,
+        //         'category_id'=>1,
+        //         'status'=>0,
+        //         'points'=>12,
+        //         'day'=>12,
+        //         'staff_id'=>1
                 
-            )
-        );
+        //     )
+        // );
     }
 
     /**

@@ -178,8 +178,9 @@ class certificateController extends Controller
             if($cert->status==0){
             $cert->status=1;
             $cert->about="Points are added";
+            $cert->points=$req->points;
             $stud= student::find($cert->student_id);
-            $stud->points=$stud->points + $cert->points;
+            $stud->points=$stud->points + $req->points;
             $stud->c_count=$stud->c_count+1;
             if($cert->save() && $stud->save()){
                 return response()->json([
