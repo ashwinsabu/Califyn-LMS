@@ -22,15 +22,9 @@ class pointController extends Controller
         try{
             $result = point::where('activity_id', $req->activity_id)
                             ->where('category_id', $req->category_id)
-                            ->where('level_id', $req->level_id)->first();
-            if($result){
-                return(response()->json(array($result)));
-            }
-            else{
-                return response()->json([
-                    'message' => 'Does not exist'], 204);
-            }
+                            ->where('level_id', $req->level_id)->get();
             
+            return(response()->json(array("data" => $result)));
         }
         catch(\Exception $exception){
             return response()->json([
