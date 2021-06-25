@@ -199,7 +199,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     });
 
     
-
+    Route::post('point/gets',[pointController::class,'getData']);
     
 
 Route::fallback(function(){
