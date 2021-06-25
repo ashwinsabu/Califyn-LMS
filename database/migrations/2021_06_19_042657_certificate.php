@@ -27,7 +27,7 @@ class Certificate extends Migration
             $table->bigInteger('activity_id')->unsigned();
             $table->bigInteger('category_id')->unsigned();
             $table->bigInteger('staff_id')->unsigned();
-            $table->bigInteger('level_id')->unsigned();
+            $table->bigInteger('level_id')->nullable()->unsigned();
             $table->string('about')->nullable();
 
             $table->foreign('student_id')->references('id')->on('students');
