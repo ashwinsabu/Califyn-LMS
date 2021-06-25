@@ -31,7 +31,6 @@ class certificate extends Model
 
     public $createRules = array(
         'student_id' => 'required',
-        'level_id' => 'required',
         'category_id' => 'required',
         'activity_id' => 'required'
     );
