@@ -27,6 +27,7 @@ class Student extends Migration
             $table->string('section');
             $table->bigInteger('staff_id')->unsigned()->nullable();
             $table->integer('points')->nullable();
+            $table->integer('points2')->nullable();
             
 
             $table->foreign('department_id')->references('id')->on('departments');
@@ -47,7 +48,8 @@ class Student extends Migration
                 'semester'=>5,
                 'section'=>'a',
                 'staff_id'=>1,
-                'points'=>12
+                'points'=>12,
+                'points2'=>0
                 
             )
         );
@@ -60,6 +62,6 @@ class Student extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('students');
     }
 }
