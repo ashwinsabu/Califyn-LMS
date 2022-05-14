@@ -58,7 +58,7 @@ use App\Http\Controllers\attendanceController;
 
         Route::get('user',[userController::class,'getData']);
 
-        /////
+        ///
 
         Route::get('courses',[coursesController::class,'getData']);
 
