@@ -22,7 +22,6 @@ use App\Http\Controllers\forgotPassword;
 use App\Http\Controllers\pointController;
 use App\Http\Controllers\classroomController;
 use App\Http\Controllers\attendanceController;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
