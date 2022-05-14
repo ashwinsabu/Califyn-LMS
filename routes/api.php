@@ -12,6 +12,7 @@ use App\Http\Controllers\levelController;
 use App\Http\Controllers\entrepreneurship_innovationController;
 use App\Http\Controllers\cultural_acitivities_participationsController;
 use App\Http\Controllers\departmentController;
+use App\Http\Controllers\coursesController;
 use App\Http\Controllers\categorieController;
 use App\Http\Controllers\certificateController;
 use App\Http\Controllers\userController;
@@ -19,6 +20,8 @@ use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\activityController;
 use App\Http\Controllers\forgotPassword;
 use App\Http\Controllers\pointController;
+use App\Http\Controllers\classroomController;
+use App\Http\Controllers\attendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +57,20 @@ use App\Http\Controllers\pointController;
         Route::post('staff/add/admin',[staffController::class,'addAdmin']);
 
         Route::get('user',[userController::class,'getData']);
+
+        /////
+
+        Route::get('courses',[coursesController::class,'getData']);
+
+        Route::get('courses/{id}',[coursesController::class,'getData1']);
+
+        Route::post('courses/add',[coursesController::class,'add']);
+
+        Route::post('classroom',[classroomController::class,'getData1']);
+
+        Route::post('classroom/add',[classroomController::class,'add']);
+
+        Route::post('attendance/add',[attendanceController::class,'add']);
 
 Route::group(['middleware' => 'auth:api'], function(){
 
