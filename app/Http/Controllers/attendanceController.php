@@ -14,7 +14,7 @@ class attendanceController extends Controller
         $attendance->classroom_id=$req->classroom_id;
         $attendance->date=$req->date;
         $attendance->period=$req->period;
-        $attendance->active=$req->active;
+        $attendance->active=$req->active; 
         $result=$attendance->save();
         if($result){
             return["Message"=>"Success"];
