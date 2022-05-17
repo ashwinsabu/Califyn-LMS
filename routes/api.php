@@ -22,6 +22,8 @@ use App\Http\Controllers\forgotPassword;
 use App\Http\Controllers\pointController;
 use App\Http\Controllers\classroomController;
 use App\Http\Controllers\attendanceController;
+use App\Http\Controllers\quizmainController;
+use App\Http\Controllers\quizController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -70,6 +72,12 @@ use App\Http\Controllers\attendanceController;
         Route::post('classroom/add',[classroomController::class,'add']);
 
         Route::post('attendance/add',[attendanceController::class,'add']);
+
+        Route::post('attendance/level',[attendanceController::class,'level']);
+
+        Route::post('quiz/create',[quizmainController::class,'add']);
+
+        Route::post('quiz/add',[quizController::class,'add']);
 
 Route::group(['middleware' => 'auth:api'], function(){
 

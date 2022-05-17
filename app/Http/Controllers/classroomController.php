@@ -30,6 +30,16 @@ class classroomController extends Controller
         $classroom->section=$req->section;
         $classroom->hour=0;
         $classroom->staff_id=$req->staff_id;
+        $total=DB::table('students')
+                ->where('department_id',$req->department_id)
+                ->where('yop',$req->yop)
+                ->where('section',$req->section)
+                ->count();
+        if($total==0){
+            return response()->json([
+                'message' => 'No students under this category'], 400);
+        }
+        $classroom->total_students=$total;
         $result=$classroom->save();
         if($result){
             return["Message"=>"Success"];

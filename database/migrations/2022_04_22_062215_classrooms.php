@@ -22,6 +22,7 @@ class Classrooms extends Migration
             $table->bigInteger('staff_id')->unsigned();
             $table->bigInteger('course_id')->unsigned();;
             $table->integer('hour');
+            $table->integer('total_students');
 
             //foriegn key
             $table->foreign('department_id')->references('id')->on('departments');
